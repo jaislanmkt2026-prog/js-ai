@@ -80,13 +80,15 @@ export const TABELA_PLANOS = {
     precoFormatado: "R$ 550",
     parcelado: "ou 12x de R$ 55,22",
     creditoUsd: 500,
-    descricao: "Cota master com $500 USD de saldo oficial. Máximo volume para desenvolvedores pesados, squads e automações.",
+    descricao: "Cota master com $500 USD de saldo oficial. Libera GPT Astra (o modelo mais atual), o modelo mais atual do Claude Code (Opus 5.5 e Sonnet 5) e máxima autonomia.",
     destaque: false,
     beneficios: [
       "Código oficial com $500 USD de saldo",
       "Saldo NÃO EXPIRA no final do mês (permanece até consumir 100%)",
-      "Rende 75M a 100M de tokens de Claude Sonnet",
-      "Rende mais de 400 Milhões de tokens em modelos ultra econômicos (DeepSeek)",
+      "Libera GPT Astra — o modelo mais atual e potente",
+      "Libera o modelo mais atual do Claude Code (Opus 5.5 e Sonnet 5)",
+      "Acesso completo a Fable 5.1/5, Codex Auto Review e DeepSeek",
+      "Rende 75M a 100M de tokens Claude ou 400M+ em DeepSeek",
       "Ideal para repositórios gigantes, automações e squads",
       "Entrega automática imediata na tela após o Pix"
     ],
