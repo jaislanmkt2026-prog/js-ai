@@ -14,6 +14,7 @@ import {
   confirmarPagamentoPedido,
   listarTodosPedidos
 } from "./pixService.mjs";
+import { notificarTelegramDono } from "./telegramNotifier.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -449,6 +450,16 @@ export function iniciarServidor() {
             };
           }
           pedido = confirmarPagamentoPedido(pedido.pedidoId, dadosEntrega);
+
+          // Notificação de Venda para o Dono
+          notificarTelegramDono(`🎉 *NOVA VENDA PIX CONFIRMADA!*\n\n📦 *Plano:* ${pedido.planoNome}\n💰 *Valor:* ${pedido.valorFormatado}\n👤 *Cliente:* ${pedido.nome} (${pedido.email})\n🔑 *Código Entregue:* \`${dadosEntrega.voucher || dadosEntrega.codigoResgate}\``);
+
+          // Alerta de Banca Baixa se saldo < 10 USD
+          const saldoRestante = Number(saldo?.balanceUsd || saldo?.balance || 0);
+          if (saldoRestante < 10) {
+            console.warn(`[ALERTA DE BANCA] Saldo atual no Telegram bot é de ${saldoRestante} USD.`);
+            notificarTelegramDono(`⚠️ *ALERTA DE BANCA BAIXA!*\n\nChefe, o saldo no bot do Telegram está em *${saldo?.balanceText || saldoRestante + ' US$'}* (abaixo de 10 USD).\n\n💡 Recarregue mais $30 a $50 via Binance Pay no bot para manter as próximas entregas 100% automáticas!`);
+          }
         }
 
         return responderJson(res, 200, { sucesso: true, pedido });

@@ -41,6 +41,20 @@
     </div>
   </div>
 
+  <!-- Alerta de Saldo Baixo / Recarga Binance -->
+  <div id="banner-alerta-saldo" class="hidden p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg">⚠️</div>
+      <div>
+        <h3 class="text-sm font-bold text-amber-300">Alerta de Banca: Saldo Baixo no Telegram (Nimo Shop)</h3>
+        <p id="msg-alerta-saldo" class="text-xs text-amber-400/80">O saldo atual está abaixo de 10 US$. Recarregue via Binance Pay no bot para manter as entregas automáticas.</p>
+      </div>
+    </div>
+    <div class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 text-xs font-mono font-bold whitespace-nowrap">
+      BANCA &lt; 10 USD
+    </div>
+  </div>
+
   <!-- KPI Cards -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
     
@@ -107,7 +121,16 @@
         ]);
 
         if (resSaldo.success) {
-          document.getElementById('stat-saldo-fornecedor').textContent = resSaldo.balanceText || `${resSaldo.balanceUsd || 0} US$`;
+          const saldoVal = Number(resSaldo.balanceUsd || resSaldo.balance || 0);
+          document.getElementById('stat-saldo-fornecedor').textContent = resSaldo.balanceText || `${saldoVal} US$`;
+          
+          const banner = document.getElementById('banner-alerta-saldo');
+          if (saldoVal < 10) {
+            banner.classList.remove('hidden');
+            document.getElementById('msg-alerta-saldo').textContent = `Saldo atual: ${resSaldo.balanceText || (saldoVal + ' US$')}. Resta pouco para as próximas entregas. Faça uma recarga rápida de $20 a $50 via Binance Pay no bot do Telegram.`;
+          } else {
+            banner.classList.add('hidden');
+          }
         }
 
         if (resPedidos.sucesso) {
