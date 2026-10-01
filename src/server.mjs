@@ -75,18 +75,18 @@ export const TABELA_PLANOS = {
   "plano-titanium": {
     id: "plano-titanium",
     nome: "JS TITANIUM",
-    tag: "MÁXIMA AUTONOMIA · $1.000 USD",
+    tag: "MÁXIMA AUTONOMIA · $500 USD",
     preco: 550.00,
     precoFormatado: "R$ 550",
     parcelado: "ou 12x de R$ 55,22",
-    creditoUsd: 1000,
-    descricao: "Cota master com $1.000 USD de saldo oficial. Máximo volume para desenvolvedores pesados, squads e automações.",
+    creditoUsd: 500,
+    descricao: "Cota master com $500 USD de saldo oficial. Máximo volume para desenvolvedores pesados, squads e automações.",
     destaque: false,
     beneficios: [
-      "Código oficial com $1.000 USD de saldo",
+      "Código oficial com $500 USD de saldo",
       "Saldo NÃO EXPIRA no final do mês (permanece até consumir 100%)",
-      "Rende 150M a 200M de tokens de Claude Sonnet",
-      "Rende mais de 1 Bilhão de tokens em modelos ultra econômicos (DeepSeek)",
+      "Rende 75M a 100M de tokens de Claude Sonnet",
+      "Rende mais de 400 Milhões de tokens em modelos ultra econômicos (DeepSeek)",
       "Ideal para repositórios gigantes, automações e squads",
       "Entrega automática imediata na tela após o Pix"
     ],
@@ -103,7 +103,7 @@ export const TABELA_PLANOS = {
     creditoUsd: 100,
     productIdCanboso: "6aba30f331a482e3ae1f350b"
   },
-  "plano-500usd": {
+  "plano-200usd": {
     id: "plano-prime",
     nome: "JS PRIME",
     tag: "MAIS ESCOLHIDO",
@@ -113,6 +113,16 @@ export const TABELA_PLANOS = {
     creditoUsd: 200,
     productIdCanboso: "6aba311931a482e3ae1f3df2"
   },
+  "plano-500usd": {
+    id: "plano-titanium",
+    nome: "JS TITANIUM",
+    tag: "MÁXIMA AUTONOMIA",
+    preco: 550.00,
+    precoFormatado: "R$ 550",
+    parcelado: "ou 12x de R$ 55,22",
+    creditoUsd: 500,
+    productIdCanboso: "6aba314c31a482e3ae1f4822"
+  },
   "plano-1000usd": {
     id: "plano-titanium",
     nome: "JS TITANIUM",
@@ -120,7 +130,7 @@ export const TABELA_PLANOS = {
     preco: 550.00,
     precoFormatado: "R$ 550",
     parcelado: "ou 12x de R$ 55,22",
-    creditoUsd: 1000,
+    creditoUsd: 500,
     productIdCanboso: "6aba314c31a482e3ae1f4822"
   },
   "plano-combo-500usd-chatgpt": {
@@ -130,7 +140,7 @@ export const TABELA_PLANOS = {
     preco: 550.00,
     precoFormatado: "R$ 550",
     parcelado: "ou 12x de R$ 55,22",
-    creditoUsd: 1000,
+    creditoUsd: 500,
     productIdCanboso: "6aba314c31a482e3ae1f4822"
   },
   "plano-pro": {
@@ -157,7 +167,7 @@ export const TABELA_PLANOS = {
     tag: "MÁXIMA AUTONOMIA",
     preco: 550.00,
     precoFormatado: "R$ 550",
-    creditoUsd: 1000,
+    creditoUsd: 500,
     productIdCanboso: "6aba314c31a482e3ae1f4822"
   },
   "plano-1-acesso": {
