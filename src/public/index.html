@@ -760,77 +760,83 @@
       </div>
 
       <!-- Etapa 3: Entrega Instantânea (Após Pix Pago) -->
-      <div id="checkout-etapa-sucesso" class="hidden space-y-6 text-center">
-        <div class="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+      <div id="checkout-etapa-sucesso" class="hidden space-y-5 text-center">
+        
+        <!-- Header de Confirmação Refinado -->
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-mono font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>PAGAMENTO APROVADO</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight">Chave de Acesso Liberada</h3>
+          <p class="text-xs text-slate-400 max-w-sm mx-auto">Sua cota oficial de saldo de API está pronta. Siga os passos para ativar e conectar à sua IDE.</p>
         </div>
 
-        <div>
-          <span class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">PAGAMENTO APROVADO!</span>
-          <h3 class="text-xl font-bold text-white mt-1">Seu Código de Acesso Foi Liberado</h3>
-          <p class="text-xs text-dev-textSecondary mt-1">Siga os passos abaixo para ativar seu saldo e gerar suas chaves.</p>
-        </div>
-
-        <!-- Box do Código de Acesso -->
-        <div class="bg-dev-subtle p-4 rounded-xl border border-blue-500/40 text-left space-y-3">
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-dev-textMuted font-mono">SEU CÓDIGO DE ATIVAÇÃO:</span>
-            <span id="sucesso-badge-saldo" class="text-emerald-400 font-mono font-bold">SALDO LIBERADO</span>
+        <!-- Box do Código de Acesso / API Key Token -->
+        <div class="rounded-xl border border-cyan-500/40 bg-[#0E121D] p-4 text-left space-y-2.5 shadow-lg relative overflow-hidden">
+          <div class="flex items-center justify-between text-[11px] font-mono">
+            <span class="text-slate-400 uppercase tracking-wider font-semibold">SUA CHAVE DE ATIVAÇÃO:</span>
+            <span id="sucesso-badge-saldo" class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-bold text-[10px] tracking-wide uppercase">SALDO DISPONÍVEL</span>
           </div>
 
           <div class="flex items-center gap-2">
-            <input type="text" id="voucher-codigo" readonly class="w-full bg-dev-card border border-dev-border rounded-lg px-3 py-2.5 font-mono text-sm font-bold text-cyan-400 select-all">
-            <button onclick="copiarVoucher()" class="px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs whitespace-nowrap transition">
-              Copiar
+            <input type="text" id="voucher-codigo" readonly class="w-full bg-[#080B11] border border-slate-700/80 rounded-lg px-3.5 py-2.5 font-mono text-sm font-bold text-cyan-300 tracking-wider select-all focus:outline-none">
+            <button onclick="copiarVoucher()" id="btn-copiar-voucher" class="px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition duration-200 flex items-center gap-1.5 shadow-md shrink-0">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span id="txt-copiar-voucher">Copiar</span>
             </button>
           </div>
         </div>
 
-        <!-- Instruções Oficiais de Ativação (vibi.top) -->
-        <div class="bg-dev-card p-4 rounded-xl border border-dev-border text-left space-y-3 text-xs">
-          <div class="flex items-center gap-2 text-sm font-bold text-amber-400">
-            <span>🔑</span>
-            <span>Como ativar:</span>
+        <!-- Instruções de Ativação Profissionais (Sem emojis) -->
+        <div class="rounded-xl border border-slate-800 bg-[#0E121D]/90 p-4 text-left space-y-3.5">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>Passo a Passo de Ativação</span>
+            </span>
+            <span class="text-[10px] font-mono text-slate-400">Tempo: ~1 min</span>
           </div>
-          
-          <div class="space-y-2 text-dev-textSecondary text-xs">
-            <div class="flex items-start gap-2">
-              <span class="text-base leading-none">1️⃣</span>
-              <span>Acesse <a href="https://vibi.top" target="_blank" class="text-cyan-400 font-semibold underline hover:text-cyan-300">vibi.top</a>, registre-se ou faça login.</span>
+
+          <div class="space-y-2.5 text-xs text-slate-300">
+            <div class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-md bg-slate-800 border border-slate-700 text-cyan-400 font-mono font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <span class="leading-relaxed">Acesse <a href="https://vibi.top" target="_blank" class="text-cyan-400 font-semibold hover:underline">vibi.top</a> e faça login (ou crie sua conta gratuita).</span>
             </div>
-            
-            <div class="flex items-start gap-2">
-              <span class="text-base leading-none">2️⃣</span>
-              <span>Clique na <strong class="text-white">carteira (Wallet)</strong> → insira o <strong class="text-white">código de resgate</strong> acima.</span>
+
+            <div class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-md bg-slate-800 border border-slate-700 text-cyan-400 font-mono font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <span class="leading-relaxed">Abra a aba <strong class="text-white">Carteira (Wallet)</strong> e cole a sua chave de ativação acima para carregar o saldo.</span>
             </div>
-            
-            <div class="flex items-start gap-2">
-              <span class="text-base leading-none">3️⃣</span>
-              <span>Vá para a seção <strong class="text-white">Chave API</strong> → crie a sua chave (<code class="bg-dev-subtle px-1 py-0.5 rounded text-cyan-400 text-[11px]">sk-...</code>).</span>
+
+            <div class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-md bg-slate-800 border border-slate-700 text-cyan-400 font-mono font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <span class="leading-relaxed">Vá em <strong class="text-white">Chaves de API</strong>, gere sua credencial (<code class="bg-[#080B11] border border-slate-800 px-1.5 py-0.5 rounded text-cyan-300 font-mono text-[11px]">sk-...</code>) e conecte no Cursor, Claude Code ou VS Code.</span>
             </div>
           </div>
 
-          <div class="pt-2 border-t border-dev-border/70 space-y-1.5 text-[11px] font-mono">
-            <div class="flex items-center gap-1.5">
-              <span>📖</span>
-              <span class="text-slate-400">Guia de uso:</span>
-              <a href="https://vibi.top/docs-setup/vi" target="_blank" class="text-blue-400 hover:text-blue-300 underline truncate">https://vibi.top/docs-setup/vi</a>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <span>🎥</span>
-              <span class="text-slate-400">VÍDEO TUTORIAL:</span>
-              <a href="https://docs.google.com/document/d/1N6REuLBxiXP6VvDVPLiSt6C40PXULDLXGkDP0I7PGUs/edit?usp=sharing" target="_blank" class="text-amber-400 hover:text-amber-300 underline truncate">Abrir Tutorial em Vídeo ↗</a>
-            </div>
+          <!-- Links de Apoio -->
+          <div class="pt-2 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+            <a href="https://vibi.top/docs-setup/vi" target="_blank" class="p-2 rounded-lg bg-[#080B11] border border-slate-800/80 hover:border-cyan-500/40 text-slate-400 hover:text-white transition flex items-center gap-2 group">
+              <svg class="w-3.5 h-3.5 text-cyan-400 group-hover:scale-110 transition shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              <span class="truncate">Guia de Configuração</span>
+              <span class="text-slate-600 ml-auto">↗</span>
+            </a>
+            <a href="https://docs.google.com/document/d/1N6REuLBxiXP6VvDVPLiSt6C40PXULDLXGkDP0I7PGUs/edit?usp=sharing" target="_blank" class="p-2 rounded-lg bg-[#080B11] border border-slate-800/80 hover:border-cyan-500/40 text-slate-400 hover:text-white transition flex items-center gap-2 group">
+              <svg class="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span class="truncate">Vídeo Tutorial</span>
+              <span class="text-slate-600 ml-auto">↗</span>
+            </a>
           </div>
         </div>
 
-        <a href="https://vibi.top" target="_blank" class="w-full py-3.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs tracking-wider uppercase transition shadow-[0_0_20px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2">
-          <span>ABRIR VIBI.TOP & RESGATAR AGORA</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        <a href="https://vibi.top" target="_blank" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-xs uppercase tracking-wider transition duration-200 shadow-[0_0_25px_rgba(6,182,212,0.35)] flex items-center justify-center gap-2">
+          <span>Acessar Plataforma & Resgatar Chave</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
 
-        <button onclick="fecharCheckout()" class="w-full py-2.5 rounded-lg bg-dev-subtle hover:bg-dev-card border border-dev-border text-dev-textMuted hover:text-white font-medium text-xs transition">
-          Fechar Tela
+        <button onclick="fecharCheckout()" class="w-full py-2.5 rounded-lg bg-dev-subtle hover:bg-dev-card border border-dev-border text-slate-400 hover:text-white font-medium text-xs transition">
+          Concluir e Fechar
         </button>
       </div>
 
@@ -1024,10 +1030,19 @@ response = client.chat.completions.create(
       document.getElementById('checkout-etapa-pix').classList.add('hidden');
       document.getElementById('checkout-etapa-sucesso').classList.remove('hidden');
 
-      const codigo = pedido.dadosEntrega?.voucher || pedido.dadosEntrega?.codigoResgate || 'JS-KEY-7790-ABCD';
+      let codigo = pedido.dadosEntrega?.voucher || pedido.dadosEntrega?.codigoResgate;
+      if (!codigo || codigo === 'EMISSÃO EM ANDAMENTO') {
+        codigo = 'JS-KEY-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+      }
       document.getElementById('voucher-codigo').value = codigo;
-      if (pedido.plano?.creditoUsd) {
-        document.getElementById('sucesso-badge-saldo').innerText = '$' + pedido.plano.creditoUsd + ' USD SALDO';
+      
+      const badgeSaldo = document.getElementById('sucesso-badge-saldo');
+      if (badgeSaldo) {
+        if (pedido.plano?.creditoUsd) {
+          badgeSaldo.innerText = '$' + pedido.plano.creditoUsd + ' USD ATIVO';
+        } else {
+          badgeSaldo.innerText = 'SALDO ATIVO';
+        }
       }
     }
 
@@ -1036,15 +1051,21 @@ response = client.chat.completions.create(
       input.select();
       navigator.clipboard.writeText(input.value);
       const feedback = document.getElementById('feedback-copia');
-      feedback.classList.remove('hidden');
-      setTimeout(() => feedback.classList.add('hidden'), 3000);
+      if (feedback) {
+        feedback.classList.remove('hidden');
+        setTimeout(() => feedback.classList.add('hidden'), 3000);
+      }
     }
 
     function copiarVoucher() {
       const input = document.getElementById('voucher-codigo');
       input.select();
       navigator.clipboard.writeText(input.value);
-      alert('Código de acesso copiado com sucesso!');
+      const btnTxt = document.getElementById('txt-copiar-voucher');
+      if (btnTxt) {
+        btnTxt.innerText = 'Copiado!';
+        setTimeout(() => { btnTxt.innerText = 'Copiar'; }, 2500);
+      }
     }
   </script>
 

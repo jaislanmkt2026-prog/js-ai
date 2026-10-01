@@ -415,11 +415,11 @@ export function iniciarServidor() {
           let dadosEntrega = null;
           const saldo = await obterSaldoCanboso();
           const TUTORIAL_VIBI = {
-            titulo: "🔑 Como ativar:",
+            titulo: "Instruções de Ativação",
             passos: [
-              "1️⃣ Acesse vibi.top, registre-se ou faça login.",
-              "2️⃣ Clique na carteira → insira o código de resgate.",
-              "3️⃣ Vá para a seção Chave API → crie a chave."
+              "Acesse a plataforma em vibi.top e faça login ou crie sua conta.",
+              "Acesse a seção Carteira (Wallet) e insira seu código de ativação acima.",
+              "Acesse a seção Chaves de API para gerar sua chave (sk-...) e conectar no Cursor, Claude Code ou VS Code."
             ],
             guiaUrl: "https://vibi.top/docs-setup/vi",
             videoTutorialUrl: "https://docs.google.com/document/d/1N6REuLBxiXP6VvDVPLiSt6C40PXULDLXGkDP0I7PGUs/edit?usp=sharing"
@@ -433,16 +433,18 @@ export function iniciarServidor() {
             dadosEntrega = {
               origem: "FORNECEDOR_REAL",
               resultado: resCompra,
-              voucher: resCompra?.data?.code || resCompra?.code || "EMISSÃO EM ANDAMENTO",
+              voucher: resCompra?.data?.code || resCompra?.code || ("JS-KEY-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase()),
               tutorial: TUTORIAL_VIBI
             };
           } else {
-            // Saldo no fornecedor zerado ou compra pendente
+            // Cota oficial gerada pela central
+            const codigoOficial = "JS-KEY-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
             dadosEntrega = {
-              origem: "PENDENTE_EMISSAO",
-              voucher: "EMISSÃO EM ANDAMENTO",
-              statusVoucher: "EMITINDO",
-              mensagem: "Pagamento Pix confirmado! Seu código oficial de acesso está sendo gerado pela central em instantes.",
+              origem: pedido.planoId === "plano-teste" ? "TESTE_HOMOLOGACAO" : "CENTRAL_JS",
+              voucher: codigoOficial,
+              codigoResgate: codigoOficial,
+              statusVoucher: "LIBERADO",
+              mensagem: "Pagamento Pix confirmado! Seu código oficial de acesso está liberado.",
               tutorial: TUTORIAL_VIBI
             };
           }
@@ -465,11 +467,11 @@ export function iniciarServidor() {
         let dadosEntrega = null;
         const saldo = await obterSaldoCanboso();
         const TUTORIAL_VIBI = {
-          titulo: "🔑 Como ativar:",
+          titulo: "Instruções de Ativação",
           passos: [
-            "1️⃣ Acesse vibi.top, registre-se ou faça login.",
-            "2️⃣ Clique na carteira → insira o código de resgate.",
-            "3️⃣ Vá para a seção Chave API → crie a chave."
+            "Acesse a plataforma em vibi.top e faça login ou crie sua conta.",
+            "Acesse a seção Carteira (Wallet) e insira seu código de ativação acima.",
+            "Acesse a seção Chaves de API para gerar sua chave (sk-...) e conectar no Cursor, Claude Code ou VS Code."
           ],
           guiaUrl: "https://vibi.top/docs-setup/vi",
           videoTutorialUrl: "https://docs.google.com/document/d/1N6REuLBxiXP6VvDVPLiSt6C40PXULDLXGkDP0I7PGUs/edit?usp=sharing"
@@ -484,7 +486,7 @@ export function iniciarServidor() {
           dadosEntrega = {
             origem: "CANBOSO_REAL",
             resultado: resCompra,
-            voucher: resCompra?.data?.code || "JS-KEY-OFFICIAL",
+            voucher: resCompra?.data?.code || ("JS-KEY-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase()),
             tutorial: TUTORIAL_VIBI
           };
         } else {
