@@ -588,10 +588,16 @@
 
       </div>
 
-      <!-- Banner de Aviso de Pagamento -->
-      <div class="mt-6 bg-dev-card border border-dev-border/70 rounded-xl p-4 text-xs text-dev-textSecondary flex items-center gap-3">
-        <span class="text-emerald-400 text-base font-bold">✓</span>
-        <span>Pagamento seguro via <strong>PIX Oficial do Banco Central</strong>. O saldo é entregue instantaneamente na tela e no seu e-mail após a confirmação. <strong>Sem mensalidade fixa, sem renovação automática e sem surpresas.</strong></span>
+      <!-- Banner de Aviso de Pagamento e Garantia -->
+      <div class="mt-6 bg-dev-card border border-dev-border/70 rounded-xl p-4 text-xs text-dev-textSecondary flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="text-emerald-400 text-base font-bold">✓</span>
+          <span>Pagamento seguro via <strong>PIX Oficial</strong> com liberação instantânea. <strong>Sem mensalidade oculta</strong> e saldo que não expira.</span>
+        </div>
+        <div class="flex items-center gap-2 text-cyan-400 font-mono text-[11px] font-semibold bg-cyan-950/40 border border-cyan-800/40 px-3 py-1.5 rounded-lg whitespace-nowrap">
+          <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span>Garantia de 7 Dias · Reembolso proporcional ao consumo</span>
+        </div>
       </div>
 
     </div>
@@ -611,7 +617,14 @@
         <div class="p-5 rounded-xl bg-dev-card border border-dev-border">
           <h4 class="font-bold text-white text-sm">Tem alguma mensalidade oculta?</h4>
           <p class="text-xs text-dev-textSecondary mt-2 leading-relaxed">
-            Não. Você adquire o pacote de acesso com $500 de saldo oficial pré-carregado. Não há assinatura presa no seu cartão de crédito. Você consome no seu ritmo.
+            Não. Você adquire o pacote de acesso com o saldo oficial pré-carregado contratado ($100, $200 ou $500 USD). Não há assinatura presa no seu cartão de crédito. Você consome no seu ritmo sem cobranças automáticas no fim do mês.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-dev-card border border-dev-border">
+          <h4 class="font-bold text-white text-sm">Como funciona a garantia de 7 dias e reembolso?</h4>
+          <p class="text-xs text-dev-textSecondary mt-2 leading-relaxed">
+            Você conta com <strong>garantia de até 7 dias</strong> após a compra. Caso solicite reembolso dentro do prazo, o estorno é realizado de forma <strong>parcial e proporcional</strong>: devolvemos o valor equivalente ao saldo de API que ainda não foi consumido. O volume de tokens já efetivamente utilizado em requisições é descontado proporcionalmente, garantindo total justiça e transparência.
           </p>
         </div>
 
@@ -691,12 +704,12 @@
             <input type="tel" id="input-whatsapp" placeholder="(11) 99999-9999" class="w-full bg-dev-subtle border border-dev-border rounded-lg px-3.5 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition">
           </div>
 
-          <!-- Termo de Consentimento e Blindagem Anti-Reembolso -->
+          <!-- Termo de Consentimento e Regra de Reembolso Proporcional -->
           <div class="p-3 rounded-lg bg-dev-subtle border border-dev-border/70 text-[10px] text-slate-400 space-y-1 leading-relaxed">
             <div class="flex items-start gap-2">
               <input type="checkbox" id="check-termo" required checked class="mt-0.5 rounded border-dev-border text-blue-600 focus:ring-0">
               <label for="check-termo" class="cursor-pointer">
-                Declaro que este é um <strong class="text-white">produto digital de consumo imediato</strong> (código oficial de ativação de saldo de API). Estou ciente de que o código é de uso único, intransferível e liberado na hora, renunciando a estorno ou cancelamento após sua revelação.
+                Declaro ciência da <strong class="text-white">garantia de até 7 dias</strong>: em caso de cancelamento dentro do prazo, o reembolso será <strong class="text-white">parcial e proporcional ao saldo de API restante não consumido</strong>, abatendo-se o volume de tokens e requisições já processados na conta.
               </label>
             </div>
           </div>

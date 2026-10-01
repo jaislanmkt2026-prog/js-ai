@@ -479,7 +479,8 @@ export function iniciarServidor() {
             codigoResgate: codigoVoucher,
             plataforma: "https://vibi.top",
             tutorial: TUTORIAL_VIBI,
-            garantiaDias: 30,
+            garantiaDias: 7,
+            regraReembolso: "PARCIAL_PROPORCIONAL_AO_CONSUMO",
             entregueEm: new Date().toISOString()
           };
         }
