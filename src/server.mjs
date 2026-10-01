@@ -40,13 +40,13 @@ export const TABELA_PLANOS = {
     precoFormatado: "R$ 125",
     parcelado: "ou 12x de R$ 12,55",
     creditoUsd: 100,
-    descricao: "Voucher oficial de recarga com $100 USD de saldo para usar Claude Sonnet 5, Opus e GPT sem mensalidade recorrente.",
+    descricao: "Código oficial de acesso com $100 USD de saldo para usar Claude 3.5 Sonnet, Opus e GPT sem mensalidade recorrente.",
     destaque: false,
     beneficios: [
-      "Voucher oficial com $100 USD de saldo",
+      "Código oficial com $100 USD de saldo",
       "Saldo NÃO EXPIRA no final do mês (use no seu ritmo)",
-      "Rende 15M a 20M de tokens de Claude Sonnet 5",
-      "Rende mais de 100M de tokens em DeepSeek V4.1 e GLM",
+      "Rende 15M a 20M de tokens de Claude Sonnet",
+      "Rende mais de 80M de tokens em DeepSeek V3",
       "Compatível com Cursor, VS Code, Claude Code e SDKs",
       "Entrega automática imediata na tela após o Pix"
     ],
@@ -60,14 +60,14 @@ export const TABELA_PLANOS = {
     precoFormatado: "R$ 154",
     parcelado: "ou 12x de R$ 15,46",
     creditoUsd: 200,
-    descricao: "Voucher oficial de recarga com $200 USD de saldo. Libera Claude Fable 5.1 e alta velocidade de resposta.",
+    descricao: "Código oficial de acesso com $200 USD de saldo. Alto volume e velocidade para desenvolvimento profissional.",
     destaque: true,
     beneficios: [
-      "Voucher oficial com $200 USD de saldo oficial",
+      "Código oficial com $200 USD de saldo",
       "Saldo NÃO EXPIRA no final do mês (permanece até consumir)",
-      "Rende 30M a 40M de tokens de Claude Sonnet 5",
-      "Libera Claude Fable 5.1 — o mais rápido para código",
-      "Acesso completo a Claude Opus 5.5, GPT-4o e DeepSeek",
+      "Rende 30M a 40M de tokens de Claude Sonnet",
+      "Rende mais de 160M de tokens em DeepSeek V3",
+      "Acesso completo a Claude Opus, GPT-4o e DeepSeek",
       "Entrega automática imediata na tela após o Pix"
     ],
     productIdCanboso: "6aba311931a482e3ae1f3df2"
@@ -83,10 +83,10 @@ export const TABELA_PLANOS = {
     descricao: "Cota master com $1.000 USD de saldo oficial. Máximo volume para desenvolvedores pesados, squads e automações.",
     destaque: false,
     beneficios: [
-      "Voucher oficial com $1.000 USD de saldo oficial",
+      "Código oficial com $1.000 USD de saldo",
       "Saldo NÃO EXPIRA no final do mês (permanece até consumir 100%)",
-      "Rende 150M a 200M de tokens de Claude Sonnet 5",
-      "Rende mais de 2 Bilhões de tokens em modelos rápidos (DeepSeek/GLM)",
+      "Rende 150M a 200M de tokens de Claude Sonnet",
+      "Rende mais de 1 Bilhão de tokens em modelos ultra econômicos (DeepSeek)",
       "Ideal para repositórios gigantes, automações e squads",
       "Entrega automática imediata na tela após o Pix"
     ],
@@ -168,13 +168,13 @@ export const TABELA_PLANOS = {
     precoFormatado: "R$ 297",
     parcelado: "ou 12x de R$ 29,82",
     creditoUsd: 500,
-    descricao: "Voucher oficial com $500 de saldo para usar todos os modelos de IA sem limites em uma única chave.",
+    descricao: "Código oficial de acesso com $500 de saldo para usar todos os modelos de IA sem limites em uma única chave.",
     destaque: false,
     beneficios: [
-      "Voucher com $500 de saldo oficial",
+      "Código oficial de acesso com $500 de saldo",
       "Chave própria de API (compatível com OpenAI SDK)",
-      "Acesso instantâneo a Claude 3.7, Opus e Sonnet",
-      "Acesso a GPT-6, Codex CLI, DeepSeek V4 e GLM",
+      "Acesso instantâneo a Claude 3.5 Sonnet e Opus",
+      "Acesso a GPT-4o, DeepSeek V3 e Qwen",
       "Manual passo a passo de ativação e uso",
       "Garantia blindada de 30 dias com suporte"
     ],
@@ -413,7 +413,7 @@ export function iniciarServidor() {
               origem: "PENDENTE_EMISSAO",
               voucher: "EMISSÃO EM ANDAMENTO",
               statusVoucher: "EMITINDO",
-              mensagem: "Pagamento Pix confirmado! Seu voucher oficial está sendo emitido pela central em instantes.",
+              mensagem: "Pagamento Pix confirmado! Seu código oficial de acesso está sendo gerado pela central em instantes.",
               tutorial: TUTORIAL_VIBI
             };
           }
@@ -455,12 +455,12 @@ export function iniciarServidor() {
           dadosEntrega = {
             origem: "CANBOSO_REAL",
             resultado: resCompra,
-            voucher: resCompra?.data?.code || "VIBI-OFFICIAL",
+            voucher: resCompra?.data?.code || "JS-KEY-OFFICIAL",
             tutorial: TUTORIAL_VIBI
           };
         } else {
           console.log(`[Compra] Saldo zerado ou modo teste. Gerando entrega simulada de alta fidelidade.`);
-          const codigoVoucher = "VIBI-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+          const codigoVoucher = "JS-KEY-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
           dadosEntrega = {
             origem: "DEMO_SIMULADO",
             voucher: codigoVoucher,
