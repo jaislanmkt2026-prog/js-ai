@@ -94,6 +94,23 @@ export const TABELA_PLANOS = {
     ],
     productIdCanboso: "6aba314c31a482e3ae1f4822"
   },
+  "plano-teste": {
+    id: "plano-teste",
+    nome: "TESTE HOMOLOGAÇÃO PIX",
+    tag: "TESTE REAL",
+    preco: 1.00,
+    precoFormatado: "R$ 1,00",
+    parcelado: "1x de R$ 1,00",
+    creditoUsd: 10,
+    descricao: "Plano simbólico de R$ 1,00 para homologação real do Pix no Mercado Pago.",
+    destaque: false,
+    beneficios: [
+      "Teste real de compensação bancária Pix",
+      "Valor simbólico de R$ 1,00",
+      "Liberação imediata na tela após pagamento"
+    ],
+    productIdCanboso: "6aba30f331a482e3ae1f350b"
+  },
   // Aliases de compatibilidade
   "plano-100usd": {
     id: "plano-core",
