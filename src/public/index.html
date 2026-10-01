@@ -65,7 +65,23 @@
     }
   </style>
 </head>
-<body class="min-h-screen selection:bg-blue-600 selection:text-white subtle-grid">
+<body class="min-h-screen selection:bg-blue-600 selection:text-white subtle-grid relative overflow-x-hidden">
+
+  <!-- ==================== MARCA D'ÁGUA GLOBAL JS (FUNDO DA PÁGINA) ==================== -->
+  <div class="fixed inset-0 pointer-events-none select-none overflow-hidden z-0">
+    <!-- Glow superior esquerdo com Logo JS -->
+    <div class="absolute -top-20 -left-20 w-[550px] h-[550px] opacity-[0.07] mix-blend-screen">
+      <img src="/assets/logo_js_emblem.png" alt="" class="w-full h-full object-contain">
+    </div>
+    <!-- Glow central direito com Logo JS -->
+    <div class="absolute top-[35%] -right-24 w-[650px] h-[650px] opacity-[0.06] mix-blend-screen">
+      <img src="/assets/logo_js_emblem.png" alt="" class="w-full h-full object-contain">
+    </div>
+    <!-- Glow inferior esquerdo com Logo JS -->
+    <div class="absolute -bottom-24 left-[10%] w-[600px] h-[600px] opacity-[0.06] mix-blend-screen">
+      <img src="/assets/logo_js_emblem.png" alt="" class="w-full h-full object-contain">
+    </div>
+  </div>
 
   <!-- ==================== HEADER PRINCIPAL ==================== -->
   <header class="border-b border-dev-border/70 backdrop-blur-xl bg-dev-bg/90 sticky top-0 z-40">
@@ -132,8 +148,13 @@
   </div>
 
   <!-- ==================== HERO SECTION AUTORAL ==================== -->
-  <section class="pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-dev-border/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-dev-border/60 relative overflow-hidden">
+    <!-- Marca d'Água Hero JS -->
+    <div class="absolute -right-20 top-1/2 -translate-y-1/2 w-[580px] h-[580px] pointer-events-none select-none opacity-15 mix-blend-screen hidden lg:block z-0 blur-[1px]">
+      <img src="/assets/logo_js_emblem.png" alt="" class="w-full h-full object-contain">
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
         
@@ -385,8 +406,13 @@
   </section>
 
   <!-- ==================== TABELA DE PREÇOS ==================== -->
-  <section id="planos" class="py-16 lg:py-24 border-b border-dev-border/60 bg-dev-subtle">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+  <section id="planos" class="py-16 lg:py-24 border-b border-dev-border/60 bg-dev-subtle relative overflow-hidden">
+    <!-- Marca d'Água Central da Logo JS nos Planos -->
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] pointer-events-none select-none opacity-[0.05] mix-blend-screen z-0">
+      <img src="/assets/logo_js_emblem.png" alt="" class="w-full h-full object-contain">
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
       
       <div class="text-center space-y-3 max-w-xl mx-auto">
         <span class="text-xs font-mono text-cyan-400 font-bold uppercase tracking-wider">SALDO OFICIAL · SEM VENCIMENTO NO FIM DO MÊS</span>
@@ -447,7 +473,7 @@
           </button>
         </div>
 
-        <!-- PLANO 2: JS PRIME (R$ 154) - MAIS ESCOLHIDO -->
+        <!-- PLANO 2: JS PRIME (R$ 174) - MAIS ESCOLHIDO -->
         <div class="bg-dev-card rounded-2xl p-7 border-2 border-cyan-500/80 hover:border-cyan-400 transition-all duration-300 shadow-[0_0_35px_rgba(6,182,212,0.2)] flex flex-col justify-between space-y-6 relative">
           <div class="absolute -top-3 right-6 px-3.5 py-0.5 rounded-full bg-cyan-500 text-black font-black text-[10px] tracking-wider uppercase shadow-md">
             MAIS ESCOLHIDO
@@ -461,7 +487,7 @@
 
             <div class="space-y-1">
               <div class="text-4xl font-black font-mono text-cyan-400">
-                R$ 154
+                R$ 174
               </div>
               <p class="text-xs text-dev-textMuted font-mono">Pagamento único no Pix · sem assinatura</p>
             </div>
@@ -469,7 +495,7 @@
             <ul class="space-y-3 text-xs text-dev-textSecondary">
               <li class="flex items-start gap-2.5">
                 <span class="text-cyan-400 font-bold">✓</span>
-                <span class="text-white font-bold">Código oficial com <strong>$200 USD de saldo real</strong> (o dobro de saldo por +R$ 29)</span>
+                <span class="text-white font-bold">Código oficial com <strong>$200 USD de saldo real</strong> (o dobro de saldo por +R$ 49)</span>
               </li>
               <li class="flex items-start gap-2.5">
                 <span class="text-cyan-400 font-bold">✓</span>
@@ -495,7 +521,7 @@
           </div>
 
           <button onclick="abrirCheckout('plano-prime')" class="w-full py-3.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs tracking-wide transition duration-200 shadow-[0_0_20px_rgba(6,182,212,0.4)] flex items-center justify-center gap-2">
-            <span>GARANTIR JS PRIME (R$ 154)</span>
+            <span>GARANTIR JS PRIME (R$ 174)</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </button>
         </div>
@@ -877,7 +903,7 @@ response = client.chat.completions.create(
       
       const titulos = {
         'plano-core': { titulo: 'JS CORE · SALDO $100 USD', preco: 'R$ 125,00' },
-        'plano-prime': { titulo: 'JS PRIME · SALDO $200 USD', preco: 'R$ 154,00' },
+        'plano-prime': { titulo: 'JS PRIME · SALDO $200 USD', preco: 'R$ 174,00' },
         'plano-titanium': { titulo: 'JS TITANIUM · SALDO $500 USD', preco: 'R$ 550,00' },
         // Fallbacks
         'plano-100usd': { titulo: 'JS CORE · SALDO $100 USD', preco: 'R$ 125,00' },
@@ -885,7 +911,7 @@ response = client.chat.completions.create(
         'plano-1000usd': { titulo: 'JS TITANIUM · SALDO $500 USD', preco: 'R$ 550,00' }
       };
 
-      const info = titulos[planoId] || { titulo: 'JS PRIME · SALDO $200 USD', preco: 'R$ 154,00' };
+      const info = titulos[planoId] || { titulo: 'JS PRIME · SALDO $200 USD', preco: 'R$ 174,00' };
       document.getElementById('checkout-titulo-plano').innerText = info.titulo;
       document.getElementById('checkout-preco-plano').innerText = info.preco;
 

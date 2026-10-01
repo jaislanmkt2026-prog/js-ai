@@ -30,7 +30,7 @@ if (typeof process.loadEnvFile === "function") {
 
 const PORT = process.env.PORT || 4000;
 
-// Configuração dos Planos Autorais JS AI (Preços Competitivos 125, 154, 550)
+// Configuração dos Planos Autorais JS AI (Preços Competitivos 125, 174, 550)
 export const TABELA_PLANOS = {
   "plano-core": {
     id: "plano-core",
@@ -56,9 +56,9 @@ export const TABELA_PLANOS = {
     id: "plano-prime",
     nome: "JS PRIME",
     tag: "MAIS ESCOLHIDO · $200 USD",
-    preco: 154.00,
-    precoFormatado: "R$ 154",
-    parcelado: "ou 12x de R$ 15,46",
+    preco: 174.00,
+    precoFormatado: "R$ 174",
+    parcelado: "ou 12x de R$ 17,47",
     creditoUsd: 200,
     descricao: "Código oficial de acesso com $200 USD de saldo. Alto volume e velocidade para desenvolvimento profissional.",
     destaque: true,
@@ -109,9 +109,9 @@ export const TABELA_PLANOS = {
     id: "plano-prime",
     nome: "JS PRIME",
     tag: "MAIS ESCOLHIDO",
-    preco: 154.00,
-    precoFormatado: "R$ 154",
-    parcelado: "ou 12x de R$ 15,46",
+    preco: 174.00,
+    precoFormatado: "R$ 174",
+    parcelado: "ou 12x de R$ 17,47",
     creditoUsd: 200,
     productIdCanboso: "6aba311931a482e3ae1f3df2"
   },
@@ -158,8 +158,8 @@ export const TABELA_PLANOS = {
     id: "plano-prime",
     nome: "JS PRIME",
     tag: "MAIS ESCOLHIDO",
-    preco: 154.00,
-    precoFormatado: "R$ 154",
+    preco: 174.00,
+    precoFormatado: "R$ 174",
     creditoUsd: 200,
     productIdCanboso: "6aba311931a482e3ae1f3df2"
   },
