@@ -1,0 +1,14 @@
+{
+  "name": "plataforma-ia",
+  "version": "1.0.0",
+  "description": "Plataforma de Vendas e Entrega Automática de APIs de Inteligência Artificial",
+  "type": "module",
+  "main": "src/server.mjs",
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node --watch src/server.mjs"
+  },
+  "keywords": ["ai", "api", "claude", "codex", "gpt", "pix", "reseller"],
+  "author": "Jaislan",
+  "license": "ISC"
+}

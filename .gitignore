@@ -1,0 +1,27 @@
+# Dependências
+node_modules/
+
+# Variáveis de Ambiente e Segredos (NUNCA SUBIR)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Logs e arquivos de sistema
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Arquivos temporários e rascunhos
+scratch_*.mjs
+test_*.mjs
+
+# Dados de pedidos e usuários locais
+data/pedidos.json
+data/usuarios.json
+!data/.gitkeep

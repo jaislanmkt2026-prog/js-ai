@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS AI · Painel do Membro</title>
+  
+  <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            page: '#08090F',
+            card: '#101318',
+            inner: '#151A21',
+            accent: '#2454EB',
+            'accent-light': '#6C8DFF',
+            'border-subtle': 'rgba(180, 194, 215, 0.12)',
+            'border-card': 'rgba(155, 164, 179, 0.19)',
+            'text-muted': '#9BA4B3',
+            'text-faint': '#7E8DA3',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #08090F;
+      color: #F0F4F8;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Scrollbar sutil */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #08090F;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(155, 164, 179, 0.25);
+      border-radius: 4px;
+    }
+
+    .glass-header {
+      background: rgba(8, 9, 15, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(180, 194, 215, 0.12);
+    }
+
+    .tab-active {
+      color: #6C8DFF !important;
+      background: rgba(36, 84, 235, 0.12) !important;
+      border-bottom: 2px solid #2454EB !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- ========================================== -->
+  <!-- 1. CABEÇALHO GLOBAL (STICKY)              -->
+  <!-- ========================================== -->
+  <header class="sticky top-0 z-50 glass-header">
+    <div class="max-w-[1024px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      
+      <!-- Marca JS AI -->
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-slate-800 to-slate-950 border border-cyan-500/40 flex items-center justify-center relative shadow-[0_0_15px_rgba(6,182,212,0.25)]">
+            <span class="font-display font-bold text-xs tracking-tighter text-white">JS</span>
+            <span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          </div>
+          <div class="flex items-baseline gap-1">
+            <span class="font-display font-bold text-base tracking-tight text-white">JS</span>
+            <span class="font-display font-bold text-base tracking-tight text-cyan-400">AI</span>
+          </div>
+        </a>
+        <span class="text-xs font-mono uppercase tracking-wider text-text-faint px-2 py-0.5 rounded bg-white/5 border border-white/5">PAINEL</span>
+      </div>
+
+      <!-- Links Direita -->
+      <div class="flex items-center gap-3">
+        <!-- Seletor de Idioma -->
+        <div class="flex items-center bg-white/5 border border-border-subtle rounded-lg p-0.5 text-xs font-mono">
+          <button class="px-2 py-1 rounded bg-accent/20 text-accent-light font-semibold">🇧🇷 PT</button>
+          <button class="px-2 py-1 rounded text-text-muted hover:text-white transition">🇺🇸 EN</button>
+        </div>
+
+        <a href="#faturas" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-subtle bg-white/[0.02] text-xs font-medium text-text-muted hover:text-white hover:border-white/20 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Faturas
+        </a>
+
+        <a href="https://wa.me/5582999999999" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border-subtle bg-white/[0.02] text-xs font-medium text-text-muted hover:text-white hover:border-white/20 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          Chat
+        </a>
+
+        <a href="/" class="p-1.5 rounded-lg border border-border-subtle bg-white/[0.02] text-text-muted hover:text-red-400 hover:border-red-500/30 transition" title="Sair">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- 2. CONTAINER PRINCIPAL                     -->
+  <!-- ========================================== -->
+  <main class="flex-1 max-w-[1024px] w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+    <!-- FAIXA DE BOAS-VINDAS -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border-subtle">
+      <div>
+        <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-white">
+          Olá, <span id="userName" class="text-cyan-400">Desenvolvedor</span>
+        </h1>
+        <p class="text-sm text-text-muted mt-1 flex items-center gap-2">
+          <span>Saldo Ativo: <strong class="text-white font-medium" id="userPlan">$500,00 USD</strong></span>
+          <span>·</span>
+          <span>Validade: <span class="font-mono text-cyan-300" id="userRenova">SEM EXPIRAÇÃO</span></span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">ATIVO</span>
+        </p>
+      </div>
+
+      <!-- Botões de Ação Rápida -->
+      <div class="flex items-center gap-2">
+        <a href="#docs" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-border-subtle bg-card text-xs font-medium text-text-secondary hover:text-white hover:border-white/20 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          Tutoriais
+        </a>
+        <a href="#recargas" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-cyan-500/40 bg-cyan-950/30 text-xs font-semibold text-cyan-300 hover:bg-cyan-950/50 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+          Comprar Recarga
+        </a>
+        <a href="#gerador" class="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-accent text-white text-xs font-semibold hover:bg-accent/90 shadow-[0_0_15px_rgba(36,84,235,0.35)] transition">
+          <span>Configurar Terminal</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 3. BARRA DE ABAS STICKY COM SCROLL-SPY    -->
+    <!-- ========================================== -->
+    <div class="sticky top-16 z-40 bg-[#08090F]/95 backdrop-blur-md border-b border-border-subtle py-2 -mx-4 px-4 sm:-mx-6 sm:px-6">
+      <nav class="flex items-center gap-2 overflow-x-auto no-scrollbar" id="navTabs">
+        <a href="#painel" class="px-3.5 py-2 rounded-lg text-xs font-medium text-text-muted hover:text-white transition tab-active" data-tab="painel">Painel</a>
+        <a href="#recargas" class="px-3.5 py-2 rounded-lg text-xs font-medium text-text-muted hover:text-white transition" data-tab="recargas">Recargas de Saldo</a>
+        <a href="#api" class="px-3.5 py-2 rounded-lg text-xs font-medium text-text-muted hover:text-white transition" data-tab="api">Acesso à API</a>
+        <a href="#gerador" class="px-3.5 py-2 rounded-lg text-xs font-medium text-text-muted hover:text-white transition" data-tab="gerador">Gerador de variáveis</a>
+        <a href="#erros" class="px-3.5 py-2 rounded-lg text-xs font-medium text-text-muted hover:text-white transition" data-tab="erros">Dúvidas &amp; Erros</a>
+      </nav>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 4. SEÇÃO: PAINEL & TELEMETRIA              -->
+    <!-- ========================================== -->
+    <section id="painel" class="space-y-6 pt-4">
+
+      <!-- 4 Cards de Métricas -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        
+        <!-- SALDO DISPONÍVEL -->
+        <div class="bg-card border border-border-card rounded-xl p-5 relative overflow-hidden group hover:border-cyan-500/40 transition">
+          <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-cyan-400"></div>
+          <span class="text-[11px] font-medium font-sans uppercase tracking-wider text-text-muted">SALDO DISPONÍVEL</span>
+          <div class="mt-2 text-3xl font-bold font-mono text-cyan-400 flex items-baseline gap-2">
+            <span id="metricBalance">$482,40</span>
+          </div>
+          <p class="text-[11px] text-text-faint mt-1">Saldo oficial sem expiração</p>
+        </div>
+
+        <!-- REQUISIÇÕES TOTAIS -->
+        <div class="bg-card border border-border-card rounded-xl p-5 hover:border-white/20 transition">
+          <span class="text-[11px] font-medium font-sans uppercase tracking-wider text-text-muted">REQUISIÇÕES REALIZADAS</span>
+          <div class="mt-2 text-3xl font-bold font-mono text-white flex items-baseline gap-2">
+            <span id="metricTotal">1.480</span>
+          </div>
+          <p class="text-[11px] text-text-faint mt-1">Total de chamadas à API</p>
+        </div>
+
+        <!-- TOKENS CONSUMIDOS -->
+        <div class="bg-card border border-border-card rounded-xl p-5 hover:border-white/20 transition">
+          <span class="text-[11px] font-medium font-sans uppercase tracking-wider text-text-muted">TOKENS CONSUMIDOS</span>
+          <div class="mt-2 text-3xl font-bold font-mono text-white flex items-baseline gap-2">
+            <span id="metricTokens">8,7M</span>
+          </div>
+          <p class="text-[11px] text-text-faint mt-1">Entrada + saída acumuladas</p>
+        </div>
+
+        <!-- MODELOS DISPONÍVEIS -->
+        <div class="bg-card border border-border-card rounded-xl p-5 hover:border-white/20 transition">
+          <span class="text-[11px] font-medium font-sans uppercase tracking-wider text-text-muted">MODELOS ATIVOS</span>
+          <div class="mt-2 text-3xl font-bold font-mono text-accent-light flex items-baseline gap-2">
+            <span id="metricModels">6</span>
+          </div>
+          <p class="text-[11px] text-text-faint mt-1">Claude Sonnet 5, Opus, DeepSeek, GPT</p>
+        </div>
+
+      </div>
+
+      <!-- CALLOUT: COMECE AQUI -->
+      <div class="bg-card border border-border-card rounded-xl p-6 relative overflow-hidden border-l-4 border-l-cyan-400">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-inner border border-white/10 flex items-center justify-center shrink-0">
+              <span class="font-mono text-lg font-bold text-cyan-400">&gt;_</span>
+            </div>
+            <div>
+              <span class="text-[11px] font-bold font-mono tracking-wider text-cyan-400 uppercase">COMECE AQUI</span>
+              <h2 class="font-display font-bold text-xl text-white mt-0.5">Use os modelos no seu terminal</h2>
+              <p class="text-xs text-text-muted mt-1 max-w-xl leading-relaxed">
+                Claude Code, Codex CLI, Cursor e o SDK oficial funcionam diretamente com a sua chave JS AI. 
+                Utilize nosso gerador de variáveis para exportar o comando pronto para PowerShell, CMD ou Bash sem digitar nada manual.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
+            <a href="#docs" class="px-3.5 py-2 rounded-lg bg-white/5 border border-border-subtle text-xs font-medium text-white hover:bg-white/10 transition">
+              Abrir documentação
+            </a>
+            <a href="#gerador" class="px-3.5 py-2 rounded-lg bg-accent text-xs font-semibold text-white hover:bg-accent/90 shadow-[0_0_12px_rgba(36,84,235,0.3)] transition">
+              Gerador de variáveis
+            </a>
+            <a href="#erros" class="px-3.5 py-2 rounded-lg bg-white/5 border border-border-subtle text-xs font-medium text-text-muted hover:text-white transition">
+              Erros comuns
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD: QUANTO VOCÊ ECONOMIZOU (PEÇA DE RETENÇÃO BRUTAL) -->
+      <div class="bg-card border border-border-card rounded-xl p-6 space-y-5">
+        <div>
+          <h3 class="font-display font-bold text-lg text-white">Quanto você economizou</h3>
+          <p class="text-xs text-text-muted mt-0.5">Custo real que este volume de tokens teria se pago diretamente nas APIs oficiais (OpenAI e Anthropic).</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- PAGANDO POR TOKEN -->
+          <div class="bg-inner border border-red-500/20 rounded-lg p-4">
+            <span class="text-[10px] font-mono uppercase tracking-wider text-text-muted">PAGANDO POR TOKEN</span>
+            <div class="text-xl sm:text-2xl font-bold font-mono text-red-400 mt-1">R$ 24.112,47</div>
+            <p class="text-[10px] text-text-faint mt-1">Valor oficial em USD convertido</p>
+          </div>
+
+          <!-- SEU INVESTIMENTO -->
+          <div class="bg-inner border border-emerald-500/20 rounded-lg p-4">
+            <span class="text-[10px] font-mono uppercase tracking-wider text-text-muted">SEU INVESTIMENTO</span>
+            <div class="text-xl sm:text-2xl font-bold font-mono text-emerald-400 mt-1">R$ 297,00</div>
+            <p class="text-[10px] text-text-faint mt-1">Voucher $500 USD (sem expiração)</p>
+          </div>
+
+          <!-- ECONOMIA LÍQUIDA -->
+          <div class="bg-inner border border-cyan-500/30 rounded-lg p-4 bg-gradient-to-br from-cyan-950/20 to-transparent">
+            <span class="text-[10px] font-mono uppercase tracking-wider text-cyan-400">ECONOMIA LÍQUIDA</span>
+            <div class="text-xl sm:text-2xl font-bold font-mono text-cyan-300 mt-1">R$ 23.815,47</div>
+            <p class="text-[10px] text-text-faint mt-1">Economia direta no seu bolso</p>
+          </div>
+        </div>
+
+        <!-- Detalhamento por Modelo Usado -->
+        <div class="pt-3 border-t border-border-subtle space-y-2 text-xs">
+          <div class="flex items-center justify-between text-text-muted py-1">
+            <span>Claude Sonnet 5 (412M tokens)</span>
+            <span class="font-mono text-white">R$ 14.820,10</span>
+          </div>
+          <div class="flex items-center justify-between text-text-muted py-1">
+            <span>Claude Opus 5.5 (180M tokens)</span>
+            <span class="font-mono text-white">R$ 6.480,00</span>
+          </div>
+          <div class="flex items-center justify-between text-text-muted py-1">
+            <span>Claude 3.7 / 3.5 Sonnet (205M tokens)</span>
+            <span class="font-mono text-white">R$ 2.450,37</span>
+          </div>
+          <div class="flex items-center justify-between text-text-muted py-1">
+            <span>GLM 5.3 &amp; DeepSeek V4 (100M tokens)</span>
+            <span class="font-mono text-white">R$ 362,00</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 5. SEÇÃO: RECARGAS DE SALDO (REAL E TRANSPARENTE) -->
+    <!-- ========================================== -->
+    <section id="recargas" class="space-y-6 pt-8 border-t border-border-subtle">
+      <div>
+        <h2 class="font-display font-bold text-2xl text-white">Adicionar Saldo &amp; Recargas Oficiais</h2>
+        <p class="text-xs text-text-muted mt-1">Recarregue sua cota em dólares a qualquer momento via Pix instantâneo com entrega imediata na tela.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <!-- VOUCHER $100 USD (JS CORE) -->
+        <div class="bg-card border border-border-card rounded-xl p-6 flex flex-col justify-between hover:border-white/20 transition">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="font-display font-bold text-lg text-white">JS CORE</h3>
+              <span class="text-[9px] font-mono uppercase bg-white/5 text-text-muted border border-white/10 px-2 py-0.5 rounded">SEM EXPIRAÇÃO</span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-1">
+              <span class="text-2xl font-bold font-mono text-white">R$ 125,00</span>
+              <span class="text-xs text-text-muted font-sans">($100 USD)</span>
+            </div>
+            <ul class="mt-5 space-y-2.5 text-xs text-text-secondary">
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span> Voucher oficial com $100 USD de saldo
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span> Saldo NÃO expira no final do mês
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span> Rende 15M a 20M tokens Sonnet 5
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span> Rende 100M+ em DeepSeek / GLM
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-border-subtle">
+            <a href="/?plano=plano-core" class="block text-center w-full py-2.5 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition">
+              Recarregar $100 USD (R$ 125)
+            </a>
+          </div>
+        </div>
+
+        <!-- VOUCHER $200 USD (JS PRIME - MAIS ESCOLHIDO) -->
+        <div class="bg-card border-2 border-cyan-500/60 rounded-xl p-6 flex flex-col justify-between relative shadow-[0_0_25px_rgba(6,182,212,0.15)]">
+          <span class="absolute top-4 right-4 text-[10px] font-mono uppercase tracking-wider text-cyan-400 border border-cyan-500/40 bg-cyan-950/40 px-2 py-0.5 rounded">MAIS ESCOLHIDO</span>
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="font-display font-bold text-lg text-white">JS PRIME</h3>
+              <span class="text-[9px] font-mono uppercase bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded">MELHOR VALOR</span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-1">
+              <span class="text-2xl font-bold font-mono text-cyan-400">R$ 154,00</span>
+              <span class="text-xs text-text-muted font-sans">($200 USD)</span>
+            </div>
+            <ul class="mt-5 space-y-2.5 text-xs text-text-secondary">
+              <li class="flex items-center gap-2">
+                <span class="text-cyan-400">✓</span> Voucher oficial com $200 USD de saldo
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-cyan-400">✓</span> Saldo NÃO expira no final do mês
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-cyan-400">✓</span> Rende 30M a 40M tokens Sonnet 5
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-cyan-400">✓</span> Libera Claude Fable 5.1 e Opus 5.5
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-cyan-400">✓</span> Alta velocidade sem filas de pico
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-border-subtle">
+            <a href="/?plano=plano-prime" class="block text-center w-full py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black text-xs font-black shadow-[0_0_15px_rgba(6,182,212,0.4)] transition">
+              Recarregar $200 USD (R$ 154)
+            </a>
+          </div>
+        </div>
+
+        <!-- VOUCHER $1.000 USD (JS TITANIUM - MÁXIMA AUTONOMIA) -->
+        <div class="bg-card border border-border-card rounded-xl p-6 flex flex-col justify-between hover:border-purple-500/40 transition">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="font-display font-bold text-lg text-white">JS TITANIUM</h3>
+              <span class="text-[9px] font-mono uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30 px-1.5 py-0.5 rounded">MÁXIMA POTÊNCIA</span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-1">
+              <span class="text-2xl font-bold font-mono text-purple-300">R$ 550,00</span>
+              <span class="text-xs text-text-muted font-sans">($1.000 USD)</span>
+            </div>
+            <ul class="mt-5 space-y-2.5 text-xs text-text-secondary">
+              <li class="flex items-center gap-2 text-purple-300 font-medium">
+                <span>⭐</span> Voucher oficial com $1.000 USD de saldo
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span> Saldo NÃO expira (use até consumir 100%)
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span> Rende 150M a 200M de tokens Sonnet 5
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span> Rende mais de 2 Bilhões em DeepSeek/GLM
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emerald-400">✓</span> Ideal para squads, múltiplos projetos e Cursor
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-border-subtle">
+            <a href="/?plano=plano-titanium" class="block text-center w-full py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-xs font-semibold text-white shadow-lg transition">
+              Recarregar $1.000 USD (R$ 550)
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- AVISO DE PAGAMENTO -->
+      <div class="bg-inner border border-border-subtle rounded-lg p-3 text-xs text-text-muted flex items-center gap-2">
+        <span class="text-cyan-400 font-bold">ℹ</span>
+        <span>Pagamento único por PIX com verificação e liberação automática imediata na tela. Sem assinaturas surpresa e sem renovação automática.</span>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 6. SEÇÃO: ACESSO À API & GATEWAY           -->
+    <!-- ========================================== -->
+    <section id="api" class="space-y-6 pt-8 border-t border-border-subtle">
+      <div>
+        <h2 class="font-display font-bold text-2xl text-white">Acesso à API &amp; Conexão Direta</h2>
+        <p class="text-xs text-text-muted mt-1">Conecte seu VS Code, Cursor, Cline ou Claude Code diretamente com a URL oficial e sua chave.</p>
+      </div>
+
+      <!-- GATEWAY URL BOX -->
+      <div class="bg-card border border-border-card rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span class="text-[10px] font-mono uppercase tracking-wider text-text-faint">GATEWAY BASE URL (OPENAI / CURSOR)</span>
+          <div class="font-mono text-sm sm:text-base text-cyan-400 font-semibold mt-0.5 select-all" id="gatewayUrl">
+            https://vibi.top/v1
+          </div>
+          <p class="text-[11px] text-text-muted mt-1">Para Claude Code (Anthropic SDK), utilize base URL: <code class="text-cyan-300">https://vibi.top</code></p>
+        </div>
+        <button onclick="copiarTexto('https://vibi.top/v1', this)" class="px-4 py-2 rounded-lg bg-white/5 border border-border-subtle text-xs font-medium text-white hover:bg-white/10 transition shrink-0 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          <span>Copiar URL</span>
+        </button>
+      </div>
+
+      <!-- LISTA DE CHAVES DE API -->
+      <div id="chaves" class="bg-card border border-border-card rounded-xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-display font-bold text-lg text-white">Suas Chaves de API</h3>
+            <p class="text-xs text-text-muted">Chave pessoal de inferência para seus editores e CLIs.</p>
+          </div>
+          <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded">1 de 3 chaves ativas</span>
+        </div>
+
+        <div class="bg-inner border border-border-subtle rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono text-sm">🔑</div>
+            <div>
+              <div class="font-medium text-sm text-white flex items-center gap-2">
+                <span>Chave Principal (VS Code / Terminal)</span>
+                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">ATIVA</span>
+              </div>
+              <div class="font-mono text-xs text-text-muted mt-0.5">
+                js_live_8913•••••••••••••••••••••••• · CRIADA EM 01/10/2026
+              </div>
+            </div>
+          </div>
+          <button onclick="alert('Chave atual já configurada e ativa!')" class="text-xs font-medium text-text-muted hover:text-red-400 transition self-end sm:self-center">
+            Revogar
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 7. GERADOR DE VARIÁVEIS (CRUCIAL & 100% FRONTEND) -->
+    <!-- ========================================== -->
+    <section id="gerador" class="space-y-6 pt-8 border-t border-border-subtle">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🔑</span>
+          <h2 class="font-display font-bold text-2xl text-white">Gerador de Variáveis</h2>
+        </div>
+        <p class="text-xs text-text-muted mt-1">
+          Monte o comando exato de copiar e colar para o seu terminal sem risco de errar caminhos ou sintaxes.
+        </p>
+      </div>
+
+      <div class="bg-card border border-border-card rounded-xl p-6 space-y-6">
+        
+        <!-- Campo: Chave de API -->
+        <div class="space-y-2">
+          <label class="text-xs font-mono uppercase tracking-wider text-text-muted flex items-center justify-between">
+            <span>SUA CHAVE DE API (MONTADO LOCALMENTE)</span>
+            <span class="text-emerald-400 flex items-center gap-1 font-sans text-[11px] normal-case">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              Processado 100% no seu navegador
+            </span>
+          </label>
+          <input type="text" id="inputKey" value="js_live_89139488293749a1b2c3d4e5f6" placeholder="js_live_..." oninput="atualizarComandoGerador()" class="w-full bg-inner border border-border-card focus:border-cyan-400 rounded-lg px-3.5 py-2.5 text-sm font-mono text-white outline-none transition">
+        </div>
+
+        <!-- Controles Segmentados -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          
+          <!-- Ferramenta -->
+          <div class="space-y-1.5">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-text-muted">1. FERRAMENTA</span>
+            <div class="grid grid-cols-3 gap-1 bg-inner p-1 rounded-lg border border-border-subtle" id="segTool">
+              <button onclick="setGeneratorState('tool', 'claude')" class="py-1.5 text-xs font-medium rounded bg-accent text-white" data-val="claude">Claude</button>
+              <button onclick="setGeneratorState('tool', 'codex')" class="py-1.5 text-xs font-medium rounded text-text-muted hover:text-white" data-val="codex">Codex</button>
+              <button onclick="setGeneratorState('tool', 'cursor')" class="py-1.5 text-xs font-medium rounded text-text-muted hover:text-white" data-val="cursor">Cursor</button>
+            </div>
+          </div>
+
+          <!-- Terminal -->
+          <div class="space-y-1.5">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-text-muted">2. TERMINAL / SO</span>
+            <div class="grid grid-cols-3 gap-1 bg-inner p-1 rounded-lg border border-border-subtle" id="segTerm">
+              <button onclick="setGeneratorState('term', 'powershell')" class="py-1.5 text-xs font-medium rounded bg-accent text-white" data-val="powershell">PowerShell</button>
+              <button onclick="setGeneratorState('term', 'cmd')" class="py-1.5 text-xs font-medium rounded text-text-muted hover:text-white" data-val="cmd">CMD</button>
+              <button onclick="setGeneratorState('term', 'bash')" class="py-1.5 text-xs font-medium rounded text-text-muted hover:text-white" data-val="bash">Bash/Zsh</button>
+            </div>
+          </div>
+
+          <!-- Escopo -->
+          <div class="space-y-1.5">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-text-muted">3. ESCOPO</span>
+            <div class="grid grid-cols-2 gap-1 bg-inner p-1 rounded-lg border border-border-subtle" id="segScope">
+              <button onclick="setGeneratorState('scope', 'session')" class="py-1.5 text-xs font-medium rounded bg-accent text-white" data-val="session">Esta Sessão</button>
+              <button onclick="setGeneratorState('scope', 'perm')" class="py-1.5 text-xs font-medium rounded text-text-muted hover:text-white" data-val="perm">Permanente</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bloco de Saída de Código -->
+        <div class="relative bg-inner border border-border-card rounded-xl p-4 overflow-hidden">
+          <div class="flex items-center justify-between pb-2 mb-2 border-b border-white/5">
+            <span class="text-[11px] font-mono text-cyan-400 font-semibold" id="commandLabel">PowerShell · Claude Code</span>
+            <button onclick="copiarComando()" class="flex items-center gap-1 text-xs text-text-muted hover:text-white transition px-2 py-1 rounded bg-white/5 border border-white/10" id="btnCopiarCmd">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span>Copiar Comando</span>
+            </button>
+          </div>
+          <pre class="font-mono text-xs sm:text-sm text-cyan-300 overflow-x-auto p-1 leading-relaxed" id="codeOutput"></pre>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 8. SEÇÃO: ERROS COMUNS & DOCUMENTAÇÃO      -->
+    <!-- ========================================== -->
+    <section id="erros" class="space-y-6 pt-8 border-t border-border-subtle">
+      <div>
+        <h2 class="font-display font-bold text-2xl text-white">Solução de Dúvidas &amp; Erros Comuns</h2>
+        <p class="text-xs text-text-muted mt-1">Consulte as soluções instantâneas antes de precisar de qualquer suporte.</p>
+      </div>
+
+      <div class="bg-card border border-border-card rounded-xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-inner border-b border-border-subtle font-mono text-[11px] text-text-muted uppercase">
+              <tr>
+                <th class="py-3 px-4">SINTOMA</th>
+                <th class="py-3 px-4">CAUSA</th>
+                <th class="py-3 px-4">CORREÇÃO RECOMENDADA</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border-subtle text-text-secondary">
+              <tr>
+                <td class="py-3.5 px-4 font-mono text-red-400">404 Not Found</td>
+                <td class="py-3.5 px-4">ANTHROPIC_BASE_URL com /v1 no final</td>
+                <td class="py-3.5 px-4 text-emerald-400">Deixe apenas a URL base (sem /v1). O SDK da Anthropic acrescenta /v1 sozinho.</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-mono text-amber-400">401 Unauthorized</td>
+                <td class="py-3.5 px-4">Chave incorreta ou espaço no início/fim</td>
+                <td class="py-3.5 px-4 text-white">Copie novamente a chave sem espaços nas pontas.</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-mono text-purple-400">429 Insufficient Quota</td>
+                <td class="py-3.5 px-4">Saldo em dólares do voucher consumido na totalidade</td>
+                <td class="py-3.5 px-4 text-cyan-300">Adquira uma nova recarga de $100 ou $500 USD na seção Recargas para reabastecer a cota.</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-mono text-text-muted">Variável não carrega</td>
+                <td class="py-3.5 px-4">Terminal não reiniciado após set permanente</td>
+                <td class="py-3.5 px-4 text-white">Feche a janela do terminal e abra uma nova para carregar o ambiente.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- 9. RODAPÉ GLOBAL                           -->
+  <!-- ========================================== -->
+  <footer class="border-t border-border-subtle py-8 mt-12 bg-card/40">
+    <div class="max-w-[1024px] mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-muted">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-mono text-emerald-400 font-medium">GATEWAY ONLINE &amp; RESPONDENDO</span>
+      </div>
+      <div>
+        © 2026 JS AI · Todos os direitos reservados · Operação Autônoma
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE COMPORTAMENTO DO GERADOR & ABAS -->
+  <script>
+    const state = {
+      tool: 'claude',
+      term: 'powershell',
+      scope: 'session'
+    };
+
+    function setGeneratorState(category, value) {
+      state[category] = value;
+      
+      // Atualiza botões do grupo
+      let containerId = category === 'tool' ? 'segTool' : category === 'term' ? 'segTerm' : 'segScope';
+      const buttons = document.querySelectorAll(`#${containerId} button`);
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-val') === value) {
+          btn.className = 'py-1.5 text-xs font-medium rounded bg-accent text-white';
+        } else {
+          btn.className = 'py-1.5 text-xs font-medium rounded text-text-muted hover:text-white';
+        }
+      });
+
+      atualizarComandoGerador();
+    }
+
+    function atualizarComandoGerador() {
+      const key = document.getElementById('inputKey').value.trim() || 'sk-SUA_CHAVE_AQUI';
+      const baseUrl = 'https://vibi.top';
+      let cmd = '';
+      let label = '';
+
+      if (state.tool === 'claude') {
+        label = `Claude Code · ${state.term.toUpperCase()}`;
+        if (state.term === 'powershell') {
+          if (state.scope === 'session') {
+            cmd = `$env:ANTHROPIC_BASE_URL = "${baseUrl}"\n$env:ANTHROPIC_API_KEY  = "${key}"\nclaude`;
+          } else {
+            cmd = `[Environment]::SetEnvironmentVariable("ANTHROPIC_BASE_URL", "${baseUrl}", "User")\n[Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY", "${key}", "User")\n# Abra um novo PowerShell para as variáveis entrarem em vigor.`;
+          }
+        } else if (state.term === 'cmd') {
+          if (state.scope === 'session') {
+            cmd = `set ANTHROPIC_BASE_URL=${baseUrl}\nset ANTHROPIC_API_KEY=${key}\nclaude`;
+          } else {
+            cmd = `setx ANTHROPIC_BASE_URL "${baseUrl}"\nsetx ANTHROPIC_API_KEY "${key}"\n:: Abra uma nova janela do CMD para validar.`;
+          }
+        } else { // bash
+          if (state.scope === 'session') {
+            cmd = `export ANTHROPIC_BASE_URL="${baseUrl}"\nexport ANTHROPIC_API_KEY="${key}"\nclaude`;
+          } else {
+            cmd = `cat >> ~/.bashrc <<'EOF'\nexport ANTHROPIC_BASE_URL="${baseUrl}"\nexport ANTHROPIC_API_KEY="${key}"\nEOF\nsource ~/.bashrc`;
+          }
+        }
+      } else if (state.tool === 'codex') {
+        label = `Codex CLI · ${state.term.toUpperCase()}`;
+        if (state.term === 'powershell') {
+          cmd = `# Adicione ao seu %USERPROFILE%\\.codex\\config.toml:\nmodel = "claude-sonnet-5"\nmodel_provider = "jsai"\n\n[model_providers.jsai]\nname = "JS AI"\nbase_url = "${baseUrl}/v1"\nenv_key = "JSAI_API_KEY"\nwire_api = "responses"\n\n# E execute no terminal:\n$env:JSAI_API_KEY = "${key}"\ncodex`;
+        } else {
+          cmd = `export JSAI_API_KEY="${key}"\ncodex`;
+        }
+      } else { // cursor
+        label = `Cursor & VS Code Settings`;
+        cmd = `Configuração do Cursor / Cline:\n\n1. Provedor: OpenAI Compatible (ou Anthropic)\n2. Base URL: ${baseUrl}/v1\n3. API Key:  ${key}\n4. Modelo:   claude-sonnet-5 (ou deepseek-chat, gpt-4o)`;
+      }
+
+      document.getElementById('commandLabel').textContent = label;
+      document.getElementById('codeOutput').textContent = cmd;
+    }
+
+    function copiarComando() {
+      const code = document.getElementById('codeOutput').textContent;
+      navigator.clipboard.writeText(code);
+      const btn = document.getElementById('btnCopiarCmd');
+      btn.innerHTML = `<span class="text-emerald-400">✓ Copiado!</span>`;
+      setTimeout(() => {
+        btn.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg><span>Copiar Comando</span>`;
+      }, 1500);
+    }
+
+    function copiarTexto(txt, btn) {
+      navigator.clipboard.writeText(txt);
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<span class="text-emerald-400">✓ Copiado!</span>`;
+      setTimeout(() => { btn.innerHTML = orig; }, 1500);
+    }
+
+    // Inicializa
+    atualizarComandoGerador();
+  </script>
+</body>
+</html>

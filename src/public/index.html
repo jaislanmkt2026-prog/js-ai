@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS AI — Todas as IAs de Ponta em Uma Única Chave. Sem Mensalidade Recorrente.</title>
+  <link rel="icon" type="image/png" href="/assets/navbar_logo.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            dev: {
+              bg: '#08090E',
+              subtle: '#0D0F17',
+              card: '#11131C',
+              cardHover: '#161925',
+              border: '#1B2030',
+              borderLight: '#262D42',
+              blue: '#2563EB',
+              blueHover: '#1D4ED8',
+              cyan: '#00E5FF',
+              amber: '#F59E0B',
+              textPrimary: '#FFFFFF',
+              textSecondary: '#94A3B8',
+              textMuted: '#64748B'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #08090E;
+      color: #EDEDED;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .custom-scroll::-webkit-scrollbar { width: 6px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #1B2030; border-radius: 4px; }
+    
+    .terminal-body {
+      background: #0B0D14;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .subtle-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="min-h-screen selection:bg-blue-600 selection:text-white subtle-grid">
+
+  <!-- ==================== HEADER PRINCIPAL ==================== -->
+  <header class="border-b border-dev-border/70 backdrop-blur-xl bg-dev-bg/90 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand JS AI -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-dev-subtle border border-dev-border flex items-center justify-center overflow-hidden p-1 shadow-sm group-hover:border-cyan-500/50 transition">
+          <img src="/assets/navbar_logo.png" alt="JS" class="w-full h-full object-contain">
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-base font-black text-white tracking-tight">JS <span class="text-blue-500">AI</span></span>
+          <span class="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold">
+            UNIFIED PLATFORM
+          </span>
+        </div>
+      </a>
+
+      <!-- Menu de Navegação -->
+      <nav class="hidden lg:flex items-center gap-7 text-xs font-medium text-dev-textSecondary">
+        <a href="#como-funciona" class="hover:text-white transition">Como Funciona</a>
+        <a href="#modelos" class="hover:text-white transition">Modelos Disponíveis</a>
+        <a href="#vantagens" class="hover:text-white transition">Por Que Usar</a>
+        <a href="#planos" class="hover:text-white transition">Valores & Acesso</a>
+        <a href="#duvidas" class="hover:text-white transition">Perguntas Frequentes</a>
+      </nav>
+
+      <!-- Ações Direita -->
+      <div class="flex items-center gap-3">
+        <a href="https://vibi.top" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-white px-3 py-1.5 rounded-lg border border-dev-border bg-dev-subtle hover:bg-dev-card transition">
+          <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          <span>Acessar vibi.top</span>
+        </a>
+
+        <a href="#planos" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition duration-200 shadow-[0_0_15px_rgba(37,99,235,0.35)] flex items-center gap-1.5">
+          <span>Liberar Chave Pix</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== SUB-BAR DE TELEMETRIA AO VIVO ==================== -->
+  <div class="border-b border-dev-border/50 bg-dev-subtle/50 py-2 text-[11px] font-mono text-dev-textMuted overflow-x-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-6 whitespace-nowrap">
+      
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span class="text-emerald-400 font-semibold uppercase tracking-wider">GATEWAY ATIVO & OPERACIONAL</span>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <span>TODAS AS PRINCIPAIS FAMÍLIAS DE IA</span>
+        <span class="text-dev-border">•</span>
+        <span class="text-cyan-400 font-bold">&lt; 25MS LATÊNCIA MÉDIA</span>
+        <span class="text-dev-border">•</span>
+        <span class="text-white font-bold">99,95% DISPONIBILIDADE</span>
+        <span class="text-dev-border">•</span>
+        <span class="text-amber-400 font-bold">$500 USD DE SALDO INCLUSO</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== HERO SECTION AUTORAL ==================== -->
+  <section class="pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-dev-border/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        
+        <!-- Coluna Esquerda: Proposta de Valor Autoral -->
+        <div class="lg:col-span-6 space-y-6">
+          
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/40 text-blue-400 border border-blue-800/40 text-[11px] font-mono font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+            <span>ACESSO UNIFICADO A APIs DE IA</span>
+          </div>
+
+          <!-- Título Autoral Forte -->
+          <div class="space-y-3">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08]">
+              Todas as IAs do mundo na sua IDE.<br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+                Sem mensalidade presa no cartão.
+              </span>
+            </h1>
+
+            <p class="text-sm sm:text-base text-dev-textSecondary leading-relaxed font-light max-w-xl">
+              Pare de assinar 4 planos separados em dólar. Tenha Claude 3.7 Sonnet & Opus, GPT-4o, Codex e DeepSeek no seu <strong class="text-white font-semibold">Cursor</strong>, <strong class="text-white font-semibold">VS Code</strong> ou <strong class="text-white font-semibold">Claude Code</strong> com um voucher de <strong>$500 USD de saldo real</strong> pronto para usar.
+            </p>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a href="#planos" class="px-6 py-3.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition duration-200 shadow-[0_0_25px_rgba(37,99,235,0.4)] flex items-center gap-2">
+              <span>Garantir Meu Acesso (R$ 297)</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+
+            <a href="#como-funciona" class="px-5 py-3.5 rounded-lg bg-dev-card hover:bg-dev-cardHover text-dev-textSecondary hover:text-white border border-dev-border font-medium text-sm transition">
+              Entenda como funciona
+            </a>
+          </div>
+
+          <!-- 4 Pilares de Confiança -->
+          <div class="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-dev-border/70 text-left">
+            <div>
+              <div class="text-xl font-black font-mono text-white">$500 USD</div>
+              <div class="text-[10px] font-mono uppercase text-dev-textMuted tracking-wider mt-0.5">Saldo Inicial Real</div>
+            </div>
+            <div>
+              <div class="text-xl font-black font-mono text-white">Sem Expiração</div>
+              <div class="text-[10px] font-mono uppercase text-dev-textMuted tracking-wider mt-0.5">Usa no Seu Ritmo</div>
+            </div>
+            <div>
+              <div class="text-xl font-black font-mono text-cyan-400">1 Chave</div>
+              <div class="text-[10px] font-mono uppercase text-dev-textMuted tracking-wider mt-0.5">Todos os Modelos</div>
+            </div>
+            <div>
+              <div class="text-xl font-black font-mono text-emerald-400">3 Segundos</div>
+              <div class="text-[10px] font-mono uppercase text-dev-textMuted tracking-wider mt-0.5">Entrega no Pix</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Coluna Direita: Terminal Interativo de Teste Real -->
+        <div class="lg:col-span-6">
+          
+          <div class="rounded-xl border border-dev-borderLight bg-dev-card shadow-2xl overflow-hidden">
+            
+            <!-- Barra Superior da Janela -->
+            <div class="bg-[#141824] px-4 py-3 border-b border-dev-border flex items-center justify-between">
+              
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]"></span>
+                <span class="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]"></span>
+                <span class="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]"></span>
+              </div>
+
+              <div class="text-xs font-mono text-slate-400 font-semibold flex items-center gap-1.5">
+                <span>JS AI — INTEGRATION PREVIEW</span>
+              </div>
+
+              <div class="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>CONECTADO</span>
+              </div>
+
+            </div>
+
+            <!-- Abas do Terminal -->
+            <div class="bg-[#0E1018] px-4 py-2 border-b border-dev-border flex items-center gap-2 text-xs font-mono overflow-x-auto">
+              
+              <button onclick="mudarAba('cursor')" id="aba-cursor" class="px-3 py-1.5 rounded-md bg-[#1B2132] text-white font-semibold flex items-center gap-2 transition">
+                <span>🖱️</span>
+                <span>Cursor / VS Code</span>
+              </button>
+
+              <button onclick="mudarAba('terminal')" id="aba-terminal" class="px-3 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-dev-card transition flex items-center gap-1.5">
+                <span>⌨️</span>
+                <span>Claude Code (CLI)</span>
+              </button>
+
+              <button onclick="mudarAba('python')" id="aba-python" class="px-3 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-dev-card transition flex items-center gap-1.5">
+                <span>🐍</span>
+                <span>Python / REST</span>
+              </button>
+
+            </div>
+
+            <!-- Conteúdo do Terminal Dinâmico -->
+            <div id="terminal-body" class="terminal-body p-5 text-xs text-slate-300 space-y-4 min-h-[300px] leading-relaxed">
+              
+              <div class="text-slate-500 pb-2 border-b border-dev-border/50 text-[11px] flex justify-between">
+                <span>Configuração Simples · 1 Minuto</span>
+                <span class="text-cyan-400">Cursor Settings</span>
+              </div>
+
+              <div class="space-y-2.5 font-mono text-[11px]">
+                <p class="text-slate-400">// Basta colar sua chave JS e a URL base nas configurações do Cursor:</p>
+                <div class="p-3 rounded bg-dev-card border border-dev-border text-slate-200 space-y-1">
+                  <div><span class="text-blue-400 font-bold">Override OpenAI Base URL:</span> <span class="text-emerald-400">https://vibi.top/v1</span></div>
+                  <div><span class="text-blue-400 font-bold">API Key:</span> <span class="text-amber-400">sk-js-500usd-saldo-oficial...</span></div>
+                </div>
+                <p class="text-emerald-400 pt-2 font-semibold">✓ Conexão validada com sucesso!</p>
+                <p class="text-slate-400">Modelos liberados no autocomplete e chat: <strong class="text-white">Claude 3.7 Sonnet, Opus 5.5, GPT-4o, DeepSeek V4</strong>.</p>
+              </div>
+
+            </div>
+
+            <!-- Barra Inferior do Terminal -->
+            <div class="bg-[#121520] px-4 py-3 border-t border-dev-border flex items-center justify-between text-xs font-mono">
+              <span class="text-slate-400 text-[11px]">Consumo direto por token utilizado</span>
+              <span class="text-emerald-400 font-semibold">$500.00 USD Disponível</span>
+            </div>
+
+          </div>
+
+          <p class="text-xs text-dev-textMuted mt-3 font-mono leading-relaxed">
+            Compatível com qualquer aplicação que aceite a especificação padrão da OpenAI ou Anthropic. Mesma sintaxe, mesmos comandos: apenas economia extrema.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== COMO FUNCIONA (TRANSPARÊNCIA TOTAL) ==================== -->
+  <section id="como-funciona" class="py-16 border-b border-dev-border/60 bg-dev-subtle">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto">
+        <span class="text-xs font-mono text-blue-400 font-bold uppercase tracking-wider">FLUXO SIMPLES & DESCOMPLICADO</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white">Como Funciona o Seu Acesso</h2>
+        <p class="text-xs sm:text-sm text-dev-textSecondary">
+          Entenda exatamente o que você recebe e como começa a codar e criar em menos de 3 minutos.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Passo 1 -->
+        <div class="p-6 rounded-2xl bg-dev-card border border-dev-border space-y-4 relative">
+          <div class="w-10 h-10 rounded-xl bg-blue-600/10 text-blue-400 border border-blue-500/20 flex items-center justify-center font-black font-mono text-lg">
+            1
+          </div>
+          <h3 class="text-base font-bold text-white">Você Escolhe o Pacote & Paga no Pix</h3>
+          <p class="text-xs text-dev-textSecondary leading-relaxed">
+            Selecione o plano desejado e pague via Pix instantâneo com liberação 100% automatizada pelo sistema.
+          </p>
+        </div>
+
+        <!-- Passo 2 -->
+        <div class="p-6 rounded-2xl bg-dev-card border border-dev-border space-y-4 relative">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center font-black font-mono text-lg">
+            2
+          </div>
+          <h3 class="text-base font-bold text-white">Receba Seu Voucher de $500 na Hora</h3>
+          <p class="text-xs text-dev-textSecondary leading-relaxed">
+            A tela de entrega abre automaticamente com o seu código de resgate oficial para carregar o saldo na plataforma unificada (vibi.top).
+          </p>
+        </div>
+
+        <!-- Passo 3 -->
+        <div class="p-6 rounded-2xl bg-dev-card border border-dev-border space-y-4 relative">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-black font-mono text-lg">
+            3
+          </div>
+          <h3 class="text-base font-bold text-white">Gere Suas Chaves & Comece a Usar</h3>
+          <p class="text-xs text-dev-textSecondary leading-relaxed">
+            Cole a chave no Cursor, Claude Code, VS Code ou nas suas automações. Sem cobrança de mensalidade surpresa no final do mês.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== MODELOS SUPORTADOS ==================== -->
+  <section id="modelos" class="py-16 border-b border-dev-border/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono text-blue-400 font-bold uppercase tracking-wider">ECOSSISTEMA COMPLETO</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white mt-1">Modelos Disponíveis no Seu Saldo</h2>
+        </div>
+        <p class="text-xs text-dev-textMuted font-mono">Consumo transparente baseado em tokens reais</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="p-5 rounded-xl bg-dev-card border border-dev-border space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-orange-500/10 text-orange-400 border border-orange-500/20 font-bold">Anthropic</span>
+            <span class="text-xs text-slate-500">Tier 1</span>
+          </div>
+          <div class="font-bold text-white text-base">Claude Sonnet 5 & Opus 4-7</div>
+          <p class="text-xs text-dev-textSecondary leading-relaxed">Modelos de topo com 99,2% de estabilidade para código profundo e refatoração de sistemas.</p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-dev-card border border-dev-border space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">OpenAI / Codex</span>
+            <span class="text-xs text-slate-500">Tier 1</span>
+          </div>
+          <div class="font-bold text-white text-base">GPT-5.6 Terra & GPT-6 Sol</div>
+          <p class="text-xs text-dev-textSecondary leading-relaxed">100% de taxa de sucesso e melhor custo-benefício (US$ 1,20/1M) para agentes e Cursor.</p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-dev-card border border-dev-border space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/10 text-cyan-400 border border-blue-500/20 font-bold">DeepSeek</span>
+            <span class="text-xs text-slate-500">Ultra Econômico</span>
+          </div>
+          <div class="font-bold text-white text-base">DeepSeek V4.1 Flash</div>
+          <p class="text-xs text-dev-textSecondary leading-relaxed">Raciocínio lógico e matemática com token baratíssimo: rende até 300+ milhões de tokens.</p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-dev-card border border-dev-border space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20 font-bold">Z.AI</span>
+            <span class="text-xs text-slate-500">Contexto Gigante</span>
+          </div>
+          <div class="font-bold text-white text-base">GLM 5.3 Flash & Qwen 3.8</div>
+          <p class="text-xs text-dev-textSecondary leading-relaxed">1 milhão de tokens de contexto por fração de centavo. Ideal para ler repositórios inteiros.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== TABELA DE PREÇOS ==================== -->
+  <section id="planos" class="py-16 lg:py-24 border-b border-dev-border/60 bg-dev-subtle">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center space-y-3 max-w-xl mx-auto">
+        <span class="text-xs font-mono text-cyan-400 font-bold uppercase tracking-wider">SALDO OFICIAL · SEM VENCIMENTO NO FIM DO MÊS</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white">Escolha Seu Pacote de Acesso</h2>
+        <p class="text-xs sm:text-sm text-dev-textSecondary">
+          Liberação imediata no Pix do seu voucher oficial de recarga de API. O saldo é seu em dólares e <strong>não expira no fim do mês</strong>: use no seu ritmo sem mensalidade fixa.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch pt-4">
+        
+        <!-- PLANO 1: JS CORE (R$ 125) -->
+        <div class="bg-dev-card rounded-2xl p-7 border border-dev-border hover:border-dev-textMuted transition-all duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-5">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-widest text-dev-textMuted font-bold block mb-1">ENTRADA · $100 USD</span>
+              <h3 class="text-2xl font-black text-white">JS CORE</h3>
+            </div>
+
+            <div class="space-y-1">
+              <div class="text-4xl font-black font-mono text-white">
+                R$ 125
+              </div>
+              <p class="text-xs text-dev-textMuted font-mono">Pagamento único no Pix · sem assinatura</p>
+            </div>
+
+            <ul class="space-y-3 text-xs text-dev-textSecondary">
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span class="text-white font-medium">Voucher oficial com $100 USD de saldo</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span class="text-emerald-400 font-semibold">Saldo NÃO expira (use no seu ritmo)</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Rende 15M a 20M de tokens Claude Sonnet 5</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Rende 100M+ em DeepSeek V4.1 e GLM 5.3</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Compatível com Cursor, VS Code e Claude Code</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Entrega automática imediata na tela</span>
+              </li>
+            </ul>
+          </div>
+
+          <button onclick="abrirCheckout('plano-core')" class="w-full py-3.5 rounded-lg bg-dev-subtle hover:bg-white/10 text-white font-bold text-xs tracking-wide transition border border-dev-border hover:border-white/30 flex items-center justify-center gap-2">
+            <span>QUERO O JS CORE (R$ 125)</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </div>
+
+        <!-- PLANO 2: JS PRIME (R$ 154) - MAIS ESCOLHIDO -->
+        <div class="bg-dev-card rounded-2xl p-7 border-2 border-cyan-500/80 hover:border-cyan-400 transition-all duration-300 shadow-[0_0_35px_rgba(6,182,212,0.2)] flex flex-col justify-between space-y-6 relative">
+          <div class="absolute -top-3 right-6 px-3.5 py-0.5 rounded-full bg-cyan-500 text-black font-black text-[10px] tracking-wider uppercase shadow-md">
+            MAIS ESCOLHIDO
+          </div>
+
+          <div class="space-y-5">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold block mb-1">ALTA PERFORMANCE · $200 USD</span>
+              <h3 class="text-2xl font-black text-white">JS PRIME</h3>
+            </div>
+
+            <div class="space-y-1">
+              <div class="text-4xl font-black font-mono text-cyan-400">
+                R$ 154
+              </div>
+              <p class="text-xs text-dev-textMuted font-mono">Pagamento único no Pix · sem assinatura</p>
+            </div>
+
+            <ul class="space-y-3 text-xs text-dev-textSecondary">
+              <li class="flex items-start gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span>
+                <span class="text-white font-bold">Voucher oficial com $200 USD de saldo</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span>
+                <span class="text-cyan-300 font-semibold">Saldo NÃO expira (permanece até consumir)</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span>
+                <span>Rende 30M a 40M de tokens Claude Sonnet 5</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span>
+                <span>Libera Claude Fable 5.1 — o mais rápido para código</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span>
+                <span>Acesso a Claude Opus 5.5, GPT-4o e DeepSeek</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span>
+                <span>Entrega automática imediata na tela</span>
+              </li>
+            </ul>
+          </div>
+
+          <button onclick="abrirCheckout('plano-prime')" class="w-full py-3.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs tracking-wide transition duration-200 shadow-[0_0_20px_rgba(6,182,212,0.4)] flex items-center justify-center gap-2">
+            <span>GARANTIR JS PRIME (R$ 154)</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </div>
+
+        <!-- PLANO 3: JS TITANIUM (R$ 550) - MÁXIMA AUTONOMIA -->
+        <div class="bg-dev-card rounded-2xl p-7 border border-purple-500/50 hover:border-purple-400 transition-all duration-300 flex flex-col justify-between space-y-6">
+          <div class="space-y-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-mono uppercase tracking-widest text-purple-400 font-bold block mb-1">MÁXIMA AUTONOMIA · $1.000 USD</span>
+                <h3 class="text-2xl font-black text-white">JS TITANIUM</h3>
+              </div>
+              <span class="text-[9px] font-mono uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded">FULL POWER</span>
+            </div>
+
+            <div class="space-y-1">
+              <div class="text-4xl font-black font-mono text-purple-300">
+                R$ 550
+              </div>
+              <p class="text-xs text-dev-textMuted font-mono">Pagamento único no Pix · sem assinatura</p>
+            </div>
+
+            <ul class="space-y-3 text-xs text-dev-textSecondary">
+              <li class="flex items-start gap-2.5">
+                <span class="text-purple-400 font-bold">★</span>
+                <span class="text-purple-300 font-bold">Voucher oficial com $1.000 USD de saldo</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span class="text-white font-medium">Saldo NÃO expira (use até consumir 100%)</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Rende 150M a 200M de tokens Claude Sonnet 5</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Rende mais de 2 Bilhões de tokens em DeepSeek / GLM</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Ideal para squads, múltiplos projetos e Cursor</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Entrega automática imediata na tela após o Pix</span>
+              </li>
+            </ul>
+          </div>
+
+          <button onclick="abrirCheckout('plano-titanium')" class="w-full py-3.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs tracking-wide transition shadow-lg flex items-center justify-center gap-2">
+            <span>QUERO O JS TITANIUM (R$ 550)</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Banner de Aviso de Pagamento -->
+      <div class="mt-6 bg-dev-card border border-dev-border/70 rounded-xl p-4 text-xs text-dev-textSecondary flex items-center gap-3">
+        <span class="text-emerald-400 text-base font-bold">✓</span>
+        <span>Pagamento seguro via <strong>PIX Oficial do Banco Central</strong>. O saldo é entregue instantaneamente na tela e no seu e-mail após a confirmação. <strong>Sem mensalidade fixa, sem renovação automática e sem surpresas.</strong></span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ==================== -->
+  <section id="duvidas" class="py-16 border-b border-dev-border/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="text-center space-y-2">
+        <span class="text-xs font-mono text-blue-400 font-bold uppercase tracking-wider">TIRA-DÚVIDAS</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Perguntas Frequentes</h2>
+      </div>
+
+      <div class="space-y-4">
+        
+        <div class="p-5 rounded-xl bg-dev-card border border-dev-border">
+          <h4 class="font-bold text-white text-sm">Tem alguma mensalidade oculta?</h4>
+          <p class="text-xs text-dev-textSecondary mt-2 leading-relaxed">
+            Não. Você adquire o pacote de acesso com $500 de saldo oficial pré-carregado. Não há assinatura presa no seu cartão de crédito. Você consome no seu ritmo.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-dev-card border border-dev-border">
+          <h4 class="font-bold text-white text-sm">Posso usar em mais de uma máquina?</h4>
+          <p class="text-xs text-dev-textSecondary mt-2 leading-relaxed">
+            Sim! Você pode usar sua chave no notebook, no computador de mesa ou até no servidor de produção. O consumo é descontado do seu saldo unificado.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-dev-card border border-dev-border">
+          <h4 class="font-bold text-white text-sm">Como recebo após o pagamento via Pix?</h4>
+          <p class="text-xs text-dev-textSecondary mt-2 leading-relaxed">
+            A aprovação do Pix é instantânea pelo sistema bancário. Assim que compensado, a página do checkout exibe na hora o seu código de voucher oficial e as instruções passo a passo.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="py-12 bg-dev-bg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-dev-subtle border border-dev-border p-1">
+          <img src="/assets/navbar_logo.png" alt="JS" class="w-full h-full object-contain">
+        </div>
+        <div>
+          <span class="text-sm font-bold text-white">JS <span class="text-blue-500">AI</span> Platform</span>
+          <span class="block text-[10px] text-dev-textMuted font-mono">Infraestrutura Unificada de Inteligência Artificial</span>
+        </div>
+      </div>
+
+      <div class="text-xs text-dev-textMuted font-mono text-center md:text-right">
+        © 2026 JS AI Platform. Todos os direitos reservados.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL DE CHECKOUT PIX AUTOMÁTICO ==================== -->
+  <div id="modal-checkout" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-dev-card w-full max-w-lg rounded-2xl border border-dev-borderLight p-6 sm:p-8 space-y-6 shadow-2xl relative">
+      
+      <!-- Botão Fechar -->
+      <button onclick="fecharCheckout()" class="absolute top-5 right-5 text-dev-textMuted hover:text-white p-1 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Etapa 1: Dados do Cliente -->
+      <div id="checkout-etapa-dados" class="space-y-5">
+        <div>
+          <span id="checkout-badge-plano" class="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-bold">PLANO SELECIONADO</span>
+          <h3 id="checkout-titulo-plano" class="text-xl font-bold text-white mt-0.5">JS ACCESS</h3>
+          <div class="flex items-baseline gap-2 mt-1">
+            <span id="checkout-preco-plano" class="text-3xl font-black font-mono text-white">R$ 297,00</span>
+            <span class="text-xs text-dev-textMuted">via Pix com liberação imediata</span>
+          </div>
+        </div>
+
+        <form id="form-checkout" onsubmit="gerarPixPedido(event)" class="space-y-4 text-xs">
+          <div class="space-y-1">
+            <label class="text-dev-textSecondary font-medium">Seu Nome Completo:</label>
+            <input type="text" id="input-nome" required placeholder="Ex: Rodrigo Mendes" class="w-full bg-dev-subtle border border-dev-border rounded-lg px-3.5 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition">
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-dev-textSecondary font-medium">Seu Melhor E-mail (Para receber a chave e recibo):</label>
+            <input type="email" id="input-email" required placeholder="Ex: rodrigo@dev.com" class="w-full bg-dev-subtle border border-dev-border rounded-lg px-3.5 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition">
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-dev-textSecondary font-medium">WhatsApp (Opcional - para receber o comprovante):</label>
+            <input type="tel" id="input-whatsapp" placeholder="(11) 99999-9999" class="w-full bg-dev-subtle border border-dev-border rounded-lg px-3.5 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition">
+          </div>
+
+          <!-- Termo de Consentimento e Blindagem Anti-Reembolso -->
+          <div class="p-3 rounded-lg bg-dev-subtle border border-dev-border/70 text-[10px] text-slate-400 space-y-1 leading-relaxed">
+            <div class="flex items-start gap-2">
+              <input type="checkbox" id="check-termo" required checked class="mt-0.5 rounded border-dev-border text-blue-600 focus:ring-0">
+              <label for="check-termo" class="cursor-pointer">
+                Declaro que este é um <strong class="text-white">produto digital de consumo imediato</strong> (voucher com código oficial de recarga de API). Estou ciente de que o código é de uso único, intransferível e liberado na hora, renunciando a estorno ou cancelamento após sua revelação.
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-gerar-pix" class="w-full py-3.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition duration-200 shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
+            <span>GERAR PAGAMENTO PIX</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Etapa 2: QR Code Pix & Aguardando Pagamento -->
+      <div id="checkout-etapa-pix" class="hidden space-y-6 text-center">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[11px] font-mono font-medium">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+            Aguardando pagamento...
+          </span>
+          <h3 class="text-lg font-bold text-white mt-2">Escaneie o QR Code no seu Banco</h3>
+          <p class="text-xs text-dev-textSecondary">Ou copie o código Pix abaixo para colar no app.</p>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="p-3 bg-white rounded-xl shadow-xl border border-dev-border inline-block">
+            <img id="pix-qr-img" src="" alt="QR Code Pix" class="w-56 h-56 object-contain rounded-lg">
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <input type="text" id="pix-copia-cola" readonly class="w-full bg-dev-subtle border border-dev-border rounded-lg px-3 py-2.5 text-[11px] font-mono text-dev-textMuted select-all">
+            <button onclick="copiarPix()" id="btn-copiar-pix" class="px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs whitespace-nowrap transition">
+              Copiar
+            </button>
+          </div>
+          <span id="feedback-copia" class="text-[11px] text-emerald-400 font-mono hidden">Código copiado com sucesso!</span>
+        </div>
+
+        <!-- Modo Demonstração -->
+        <div class="pt-3 border-t border-dev-border/60">
+          <button onclick="simularPagamentoAprovado()" class="text-xs text-dev-textMuted hover:text-blue-400 underline font-mono transition">
+            ⚡ [Modo Teste] Simular Pagamento Aprovado no Pix
+          </button>
+        </div>
+      </div>
+
+      <!-- Etapa 3: Entrega Instantânea (Após Pix Pago) -->
+      <div id="checkout-etapa-sucesso" class="hidden space-y-6 text-center">
+        <div class="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+        </div>
+
+        <div>
+          <span class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">PAGAMENTO APROVADO!</span>
+          <h3 class="text-xl font-bold text-white mt-1">Seu Voucher JS Foi Liberado</h3>
+          <p class="text-xs text-dev-textSecondary mt-1">Siga os passos abaixo para resgatar seu saldo e gerar suas chaves.</p>
+        </div>
+
+        <!-- Box do Voucher -->
+        <div class="bg-dev-subtle p-4 rounded-xl border border-blue-500/40 text-left space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-dev-textMuted font-mono">SEU CÓDIGO DE ATIVAÇÃO:</span>
+            <span class="text-emerald-400 font-mono font-bold">$500 USD SALDO</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <input type="text" id="voucher-codigo" readonly class="w-full bg-dev-card border border-dev-border rounded-lg px-3 py-2.5 font-mono text-sm font-bold text-blue-400 select-all">
+            <button onclick="copiarVoucher()" class="px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs whitespace-nowrap transition">
+              Copiar
+            </button>
+          </div>
+        </div>
+
+        <!-- Instruções Oficiais de Ativação (vibi.top) -->
+        <div class="bg-dev-card p-4 rounded-xl border border-dev-border text-left space-y-3 text-xs">
+          <div class="flex items-center gap-2 text-sm font-bold text-amber-400">
+            <span>🔑</span>
+            <span>Como ativar:</span>
+          </div>
+          
+          <div class="space-y-2 text-dev-textSecondary text-xs">
+            <div class="flex items-start gap-2">
+              <span class="text-base leading-none">1️⃣</span>
+              <span>Acesse <a href="https://vibi.top" target="_blank" class="text-cyan-400 font-semibold underline hover:text-cyan-300">vibi.top</a>, registre-se ou faça login.</span>
+            </div>
+            
+            <div class="flex items-start gap-2">
+              <span class="text-base leading-none">2️⃣</span>
+              <span>Clique na <strong class="text-white">carteira (Wallet)</strong> → insira o <strong class="text-white">código de resgate</strong> acima.</span>
+            </div>
+            
+            <div class="flex items-start gap-2">
+              <span class="text-base leading-none">3️⃣</span>
+              <span>Vá para a seção <strong class="text-white">Chave API</strong> → crie a sua chave (<code class="bg-dev-subtle px-1 py-0.5 rounded text-cyan-400 text-[11px]">sk-...</code>).</span>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-dev-border/70 space-y-1.5 text-[11px] font-mono">
+            <div class="flex items-center gap-1.5">
+              <span>📖</span>
+              <span class="text-slate-400">Guia de uso:</span>
+              <a href="https://vibi.top/docs-setup/vi" target="_blank" class="text-blue-400 hover:text-blue-300 underline truncate">https://vibi.top/docs-setup/vi</a>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span>🎥</span>
+              <span class="text-slate-400">VÍDEO TUTORIAL:</span>
+              <a href="https://docs.google.com/document/d/1N6REuLBxiXP6VvDVPLiSt6C40PXULDLXGkDP0I7PGUs/edit?usp=sharing" target="_blank" class="text-amber-400 hover:text-amber-300 underline truncate">Abrir Tutorial em Vídeo ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://vibi.top" target="_blank" class="w-full py-3.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs tracking-wider uppercase transition shadow-[0_0_20px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2">
+          <span>ABRIR VIBI.TOP & RESGATAR AGORA</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+
+        <button onclick="fecharCheckout()" class="w-full py-2.5 rounded-lg bg-dev-subtle hover:bg-dev-card border border-dev-border text-dev-textMuted hover:text-white font-medium text-xs transition">
+          Fechar Tela
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPTS JS ==================== -->
+  <script>
+    let planoSelecionado = null;
+    let pedidoAtual = null;
+    let pollingInterval = null;
+
+    function mudarAba(aba) {
+      const btnCursor = document.getElementById('aba-cursor');
+      const btnTerminal = document.getElementById('aba-terminal');
+      const btnPython = document.getElementById('aba-python');
+      const body = document.getElementById('terminal-body');
+
+      [btnCursor, btnTerminal, btnPython].forEach(b => {
+        b.className = 'px-3 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-dev-card transition flex items-center gap-1.5';
+      });
+
+      if (aba === 'cursor') {
+        btnCursor.className = 'px-3 py-1.5 rounded-md bg-[#1B2132] text-white font-semibold flex items-center gap-2 transition';
+        body.innerHTML = `
+          <div class="text-slate-500 pb-2 border-b border-dev-border/50 text-[11px] flex justify-between">
+            <span>Configuração Simples · 1 Minuto</span>
+            <span class="text-cyan-400">Cursor Settings</span>
+          </div>
+          <div class="space-y-2.5 font-mono text-[11px]">
+            <p class="text-slate-400">// Basta colar sua chave JS e a URL base nas configurações do Cursor:</p>
+            <div class="p-3 rounded bg-dev-card border border-dev-border text-slate-200 space-y-1">
+              <div><span class="text-blue-400 font-bold">Override OpenAI Base URL:</span> <span class="text-emerald-400">https://vibi.top/v1</span></div>
+              <div><span class="text-blue-400 font-bold">API Key:</span> <span class="text-amber-400">sk-js-500usd-saldo-oficial...</span></div>
+            </div>
+            <p class="text-emerald-400 pt-2 font-semibold">✓ Conexão validada com sucesso!</p>
+            <p class="text-slate-400">Modelos liberados no autocomplete e chat: <strong class="text-white">Claude Sonnet 5, Opus 5, GPT-6 Sol, DeepSeek V4.1</strong>.</p>
+          </div>
+        `;
+      } else if (aba === 'terminal') {
+        btnTerminal.className = 'px-3 py-1.5 rounded-md bg-[#1B2132] text-white font-semibold flex items-center gap-1.5 transition';
+        body.innerHTML = `
+          <div class="text-slate-500 pb-2 border-b border-dev-border/50 text-[11px] flex justify-between">
+            <span>Claude Code no Terminal</span>
+            <span class="text-orange-400">bash / zsh</span>
+          </div>
+          <div class="space-y-2.5 font-mono text-[11px]">
+            <p class="text-slate-400">// Exporte as variáveis e chame o claude normalmente:</p>
+            <div class="p-3 rounded bg-dev-card border border-dev-border text-cyan-300 space-y-1">
+              <div>export ANTHROPIC_BASE_URL="https://vibi.top"</div>
+              <div>export ANTHROPIC_API_KEY="sk-js-sua-chave"</div>
+              <div class="text-white font-bold">claude</div>
+            </div>
+            <p class="text-slate-300">Claude Code iniciado apontando para seu saldo unificado. Rápido, sem fila e sem bloqueios.</p>
+          </div>
+        `;
+      } else if (aba === 'python') {
+        btnPython.className = 'px-3 py-1.5 rounded-md bg-[#1B2132] text-white font-semibold flex items-center gap-1.5 transition';
+        body.innerHTML = `
+          <div class="text-slate-500 pb-2 border-b border-dev-border/50 text-[11px] flex justify-between">
+            <span>SDK Python / Node.js</span>
+            <span class="text-yellow-400">python</span>
+          </div>
+          <div class="space-y-2.5 font-mono text-[11px]">
+            <div class="p-3 rounded bg-dev-card border border-dev-border text-slate-300 space-y-1 overflow-x-auto whitespace-pre">import openai
+
+client = openai.OpenAI(
+    base_url="https://vibi.top/v1",
+    api_key="sk-js-sua-chave"
+)
+
+response = client.chat.completions.create(
+    model="claude-3-7-sonnet",
+    messages=[{"role": "user", "content": "Hello World!"}]
+)</div>
+            <p class="text-emerald-400 font-semibold">✓ 100% compatível com a biblioteca oficial da OpenAI.</p>
+          </div>
+        `;
+      }
+    }
+
+    // Modal Checkout
+    function abrirCheckout(planoId) {
+      planoSelecionado = planoId;
+      document.getElementById('modal-checkout').classList.remove('hidden');
+      
+      const titulos = {
+        'plano-core': { titulo: 'JS CORE · SALDO $100 USD', preco: 'R$ 125,00' },
+        'plano-prime': { titulo: 'JS PRIME · SALDO $200 USD', preco: 'R$ 154,00' },
+        'plano-titanium': { titulo: 'JS TITANIUM · SALDO $1.000 USD', preco: 'R$ 550,00' },
+        // Fallbacks
+        'plano-100usd': { titulo: 'JS CORE · SALDO $100 USD', preco: 'R$ 125,00' },
+        'plano-500usd': { titulo: 'JS PRIME · SALDO $200 USD', preco: 'R$ 154,00' },
+        'plano-1000usd': { titulo: 'JS TITANIUM · SALDO $1.000 USD', preco: 'R$ 550,00' }
+      };
+
+      const info = titulos[planoId] || { titulo: 'JS PRIME · SALDO $200 USD', preco: 'R$ 154,00' };
+      document.getElementById('checkout-titulo-plano').innerText = info.titulo;
+      document.getElementById('checkout-preco-plano').innerText = info.preco;
+
+      document.getElementById('checkout-etapa-dados').classList.remove('hidden');
+      document.getElementById('checkout-etapa-pix').classList.add('hidden');
+      document.getElementById('checkout-etapa-sucesso').classList.add('hidden');
+    }
+
+    function fecharCheckout() {
+      document.getElementById('modal-checkout').classList.add('hidden');
+      if (pollingInterval) clearInterval(pollingInterval);
+    }
+
+    async function gerarPixPedido(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-gerar-pix');
+      btn.disabled = true;
+      btn.innerText = 'Gerando Cobrança...';
+
+      try {
+        const payload = {
+          planoId: planoSelecionado,
+          nome: document.getElementById('input-nome').value,
+          email: document.getElementById('input-email').value,
+          whatsapp: document.getElementById('input-whatsapp').value
+        };
+
+        const res = await fetch('/api/pix/criar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (data.sucesso && data.pedido) {
+          pedidoAtual = data.pedido;
+          exibirTelaPix(data.pedido);
+        } else {
+          alert('Erro ao gerar Pix: ' + (data.erro || 'Tente novamente.'));
+        }
+      } catch (err) {
+        alert('Erro ao conectar com o servidor: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'GERAR PAGAMENTO PIX';
+      }
+    }
+
+    function exibirTelaPix(pedido) {
+      document.getElementById('checkout-etapa-dados').classList.add('hidden');
+      document.getElementById('checkout-etapa-pix').classList.remove('hidden');
+
+      document.getElementById('pix-qr-img').src = pedido.qrCodeUrl;
+      document.getElementById('pix-copia-cola').value = pedido.copiaECola;
+
+      if (pollingInterval) clearInterval(pollingInterval);
+      pollingInterval = setInterval(verificarStatusPedido, 3000);
+    }
+
+    async function verificarStatusPedido() {
+      if (!pedidoAtual) return;
+      try {
+        const res = await fetch(`/api/pix/status/${pedidoAtual.id}`);
+        const data = await res.json();
+        if (data.sucesso && (data.pedido.status === 'PAGO' || data.pedido.status === 'ENTREGUE')) {
+          clearInterval(pollingInterval);
+          exibirTelaSucesso(data.pedido);
+        }
+      } catch (err) {
+        console.error('Erro no polling:', err);
+      }
+    }
+
+    async function simularPagamentoAprovado() {
+      if (!pedidoAtual) return;
+      try {
+        const res = await fetch('/api/pix/simular-pagamento', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pedidoId: pedidoAtual.id })
+        });
+        const data = await res.json();
+        if (data.sucesso && data.pedido) {
+          clearInterval(pollingInterval);
+          exibirTelaSucesso(data.pedido);
+        }
+      } catch (err) {
+        alert('Erro na simulação: ' + err.message);
+      }
+    }
+
+    function exibirTelaSucesso(pedido) {
+      document.getElementById('checkout-etapa-pix').classList.add('hidden');
+      document.getElementById('checkout-etapa-sucesso').classList.remove('hidden');
+
+      const voucher = pedido.dadosEntrega?.voucher || 'VIBI-JS-7790-ABCD';
+      document.getElementById('voucher-codigo').value = voucher;
+    }
+
+    function copiarPix() {
+      const input = document.getElementById('pix-copia-cola');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      const feedback = document.getElementById('feedback-copia');
+      feedback.classList.remove('hidden');
+      setTimeout(() => feedback.classList.add('hidden'), 3000);
+    }
+
+    function copiarVoucher() {
+      const input = document.getElementById('voucher-codigo');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      alert('Voucher copiado com sucesso!');
+    }
+  </script>
+
+</body>
+</html>
