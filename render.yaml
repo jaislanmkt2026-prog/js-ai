@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: js-ai-plataforma
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: NIMO_API_BASE
+        value: https://canboso.com
+      - key: PIX_GATEWAY
+        value: mercadopago
+      - key: NIMO_BUYER_KEY
+        sync: false
+      - key: MERCADOPAGO_ACCESS_TOKEN
+        sync: false
+      - key: ADMIN_TOKEN
+        sync: false
