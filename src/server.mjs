@@ -51,7 +51,8 @@ export const TABELA_PLANOS = {
       "Compatível com Cursor, VS Code, Claude Code e SDKs",
       "Entrega automática imediata na tela após o Pix"
     ],
-    productIdCanboso: "6aba30f331a482e3ae1f350b"
+    productIdCanboso: "6aba30f331a482e3ae1f350b",
+    custoUsd: 8.46
   },
   "plano-prime": {
     id: "plano-prime",
@@ -71,7 +72,8 @@ export const TABELA_PLANOS = {
       "Acesso completo a Claude Opus, GPT-4o e DeepSeek",
       "Entrega automática imediata na tela após o Pix"
     ],
-    productIdCanboso: "6aba311931a482e3ae1f3df2"
+    productIdCanboso: "6aba311931a482e3ae1f3df2",
+    custoUsd: 13.85
   },
   "plano-titanium": {
     id: "plano-titanium",
@@ -93,7 +95,8 @@ export const TABELA_PLANOS = {
       "Ideal para repositórios gigantes, automações e squads",
       "Entrega automática imediata na tela após o Pix"
     ],
-    productIdCanboso: "6aba314c31a482e3ae1f4822"
+    productIdCanboso: "6aba314c31a482e3ae1f4822",
+    custoUsd: 30.43
   },
   "plano-teste": {
     id: "plano-teste",
@@ -426,19 +429,37 @@ export function iniciarServidor() {
             videoTutorialUrl: "https://docs.google.com/document/d/1N6REuLBxiXP6VvDVPLiSt6C40PXULDLXGkDP0I7PGUs/edit?usp=sharing"
           };
 
-          if (saldo.success && saldo.balance > 0) {
+          const plano = TABELA_PLANOS[pedido.planoId];
+          const custoPlanoUsd = plano?.custoUsd || 0;
+          const saldoDisponivel = Number(saldo?.balanceUsd || saldo?.balance || 0);
+
+          if (saldo.success && saldoDisponivel >= custoPlanoUsd && pedido.productIdCanboso && custoPlanoUsd > 0) {
+            console.log(`[Compra Automática] Saldo disponível ($${saldoDisponivel} USD) cobre custo de $${custoPlanoUsd} USD. Comprando produto ${pedido.productIdCanboso} (${pedido.planoNome})...`);
             const resCompra = await comprarProdutoCanboso({
               productId: pedido.productIdCanboso,
               customerEmail: pedido.email
             });
-            dadosEntrega = {
-              origem: "FORNECEDOR_REAL",
-              resultado: resCompra,
-              voucher: resCompra?.data?.code || resCompra?.code || ("JS-KEY-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase()),
-              tutorial: TUTORIAL_VIBI
-            };
-          } else {
-            // Cota oficial gerada pela central
+
+            const codigoVoucher = resCompra?.delivery?.accounts?.[0]?.otherInfo 
+              || resCompra?.delivery?.accounts?.[0]?.password 
+              || resCompra?.data?.code 
+              || resCompra?.code;
+
+            if (resCompra.success && codigoVoucher) {
+              dadosEntrega = {
+                origem: "FORNECEDOR_REAL",
+                resultado: resCompra,
+                voucher: codigoVoucher,
+                codigoResgate: codigoVoucher,
+                statusVoucher: "LIBERADO",
+                mensagem: "Pagamento Pix confirmado! Seu código oficial de acesso foi emitido pelo fornecedor.",
+                tutorial: TUTORIAL_VIBI
+              };
+            }
+          }
+
+          if (!dadosEntrega) {
+            // Cota oficial gerada pela central (quando saldo na banca for insuficiente ou plano teste)
             const codigoOficial = "JS-KEY-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
             dadosEntrega = {
               origem: pedido.planoId === "plano-teste" ? "TESTE_HOMOLOGACAO" : "CENTRAL_JS",
@@ -448,6 +469,11 @@ export function iniciarServidor() {
               mensagem: "Pagamento Pix confirmado! Seu código oficial de acesso está liberado.",
               tutorial: TUTORIAL_VIBI
             };
+
+            if (custoPlanoUsd > 0 && saldoDisponivel < custoPlanoUsd) {
+              console.warn(`[ALERTA DE BANCA] Saldo no bot ($${saldoDisponivel} USD) insuficiente para comprar ${pedido.planoNome} (Custo: $${custoPlanoUsd} USD).`);
+              notificarTelegramDono(`🚨 *ATENÇÃO JAISLAN: BANCA INSUFICIENTE!*\n\nCliente pagou *${pedido.planoNome}* (${pedido.valorFormatado}), mas o custo no fornecedor é *$${custoPlanoUsd} USD* e seu saldo no bot é de apenas *$${saldoDisponivel} USD*.\n\nRecarregue sua carteira no bot do Telegram via Binance Pay para efetuar a compra oficial!`);
+            }
           }
           pedido = confirmarPagamentoPedido(pedido.pedidoId, dadosEntrega);
 
