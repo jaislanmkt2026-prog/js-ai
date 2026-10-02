@@ -4,6 +4,7 @@ services:
     runtime: node
     plan: free
     region: oregon
+    autoDeploy: true
     buildCommand: npm install
     startCommand: npm start
     envVars:
